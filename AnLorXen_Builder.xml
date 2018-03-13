@@ -1,0 +1,2136 @@
+
+<GuiXml>
+  <Controls>
+
+
+<!-- 
+*******************************************************************************
+*******     VIRTUALS     ******************************************************
+*******************************************************************************
+-->
+
+
+    <Control name="AnLorXen_Builder_EditCtrl" virtual="true">
+      <Dimensions x="172" y="36" />
+      <Controls>
+
+        <Backdrop 
+          name="$(parent)_BdCtrl" 
+          centerColor="00000000" 
+          edgeColor="3D3D20" 
+        > 
+          <AnchorFill />
+          <Edge edgeSize="2" />
+        </Backdrop>
+
+        <Label 
+          name="$(parent)_Label" 
+          color="D3D3A0" 
+          font="ZoFontWinH3" 
+          horizontalAlignment="CENTER"  
+          verticalAlignment="CENTER"  
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativePoint="TOPLEFT" 
+            offsetX="7" 
+            offsetY="0" 
+          />
+          <Dimensions x="20" y="32" />
+        </Label>
+
+        <Button name="$(parent)_BtnDn" alpha="0.8">
+          <OnClicked>
+            AnLorXen_Builder_SpinCtrlBtn_OnClicked(self)
+          </OnClicked>
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Label" 
+            relativePoint="TOPRIGHT" 
+            offsetX="4" 
+            offsetY="0" 
+          />
+          <Dimensions x="32" y="32" />
+          <Textures 
+            normal="esoui/art/buttons/minus_up.dds" 
+            pressed="esoui/art/buttons/minus_down.dds" 
+            mouseOver="esoui/art/buttons/minus_over.dds"           
+          />
+        </Button>
+
+        <Backdrop 
+          name="$(parent)_BdValue" 
+          inherits="ZO_SingleLineEditBackdrop_Keyboard" 
+        >
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-32" 
+            offsetY="4" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="-32" 
+            offsetY="-4" 
+          />
+          <Dimensions x="80" y="36" />
+        </Backdrop>
+
+        <EditBox 
+          name="$(parent)_EditBox" 
+          inherits="ZO_DefaultEditForBackdrop" 
+        >
+          <OnFocusLost>
+            AnLorXen_Builder_SpinCtrl_OnFocusLost(self)
+          </OnFocusLost>        
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_BdValue" 
+            relativePoint="TOPLEFT" 
+            offsetX="14" 
+            offsetY="3" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_BdValue" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </EditBox>
+
+        <Button name="$(parent)_BtnUp" alpha="0.8">
+          <OnClicked>
+            AnLorXen_Builder_SpinCtrlBtn_OnClicked(self)
+          </OnClicked>
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-4" 
+            offsetY="0" 
+          />
+          <Dimensions x="32" y="32" />
+          <Textures 
+            normal="esoui/art/buttons/plus_up.dds" 
+            pressed="esoui/art/buttons/plus_down.dds" 
+            mouseOver="esoui/art/buttons/plus_over.dds"           
+          />
+        </Button> 
+
+      </Controls>
+    </Control>
+
+    <!-- ****************************** -->
+    <!-- ****************************** -->
+
+
+    <Control 
+      name="AnLorXen_Builder_DeltaCtrl" 
+      mouseEnabled="true" 
+      virtual="true" 
+    >
+      <Dimensions x="172" y="36" />
+      <Controls>
+
+        <Backdrop 
+          name="$(parent)_BdCtrl" 
+          centerColor="00000000" 
+          edgeColor="3D3D20" 
+        > 
+          <AnchorFill />
+          <Edge edgeSize="2" />
+        </Backdrop>
+
+        <Label 
+          name="$(parent)_LabelAxis" 
+          color="D3D3A0" 
+          font="ZoFontGame" 
+          horizontalAlignment="CENTER"  
+          verticalAlignment="CENTER"  
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativePoint="TOPLEFT" 
+            offsetX="8" 
+            offsetY="2" 
+          />
+          <Dimensions x="16" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)_LabelCoord" 
+          color="686860" 
+          font="ZoFontGame" 
+          horizontalAlignment="CENTER"  
+          verticalAlignment="CENTER"  
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_LabelAxis" 
+            relativePoint="TOPRIGHT" 
+            offsetX="2" 
+            offsetY="0" 
+          />
+          <Dimensions x="60" y="32" />
+        </Label>
+
+        <Backdrop 
+          name="$(parent)_BdValue" 
+          inherits="ZO_SingleLineEditBackdrop_Keyboard" 
+        >
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-4" 
+            offsetY="4" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="-4" 
+            offsetY="-4" 
+          />
+          <Dimensions x="60" y="36" />
+        </Backdrop>
+
+        <EditBox 
+          name="$(parent)_EditBox" 
+          inherits="ZO_DefaultEditForBackdrop" 
+        >
+          <OnFocusLost>
+            AnLorXen_Builder_DeltaCtrl_OnFocusLost(self)
+          </OnFocusLost>        
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_BdValue" 
+            relativePoint="TOPLEFT" 
+            offsetX="14" 
+            offsetY="3" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_BdValue" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </EditBox>
+
+      </Controls>
+    </Control>
+    
+
+
+    <!-- ****************************** -->
+    <!-- ****************************** -->
+
+
+
+    <Button
+      name="AnLorXen_Builder_IncBtn" 
+      inherits="ZO_DefaultTextButton" 
+      mouseEnabled="true" 
+      virtual="true" 
+    >
+      <OnClicked>
+        AnLorXen_Builder_IncBtn_OnMouseDown(self)
+      </OnClicked>        
+      <Dimensions x="40" y="24" />
+      <Textures 
+        normal="esoui/art/buttons/swatchframe_down.dds" 
+        pressed="esoui/art/buttons/swatchframe_down.dds" 
+        mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+      />
+    </Button>
+
+
+
+<!-- 
+*******************************************************************************
+*******     GROUP LIST     ****************************************************
+*******************************************************************************
+-->
+
+
+
+    <TopLevelControl 
+      name="AnLorXen_Builder_GroupList" 
+      clampedToScreen="true" 
+      hidden="true" 
+      mouseEnabled="true" 
+      movable="true"
+    >
+      <Anchor offsetX="20" offsetY="35" />
+      <Dimensions x="320" y="320" />
+      <Controls>
+        <Backdrop 
+          name="$(parent)_Backdrop" 
+          inherits="ZO_DefaultBackdrop" 
+        />
+        <Label 
+          name="$(parent)_Title" 
+          text="Saved Groups"
+          font="ZoFontWinH3" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="16" 
+            offsetY="2" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-16" 
+            offsetY="2" 
+          />
+        </Label>
+        <Texture 
+          name="$(parent)_TopDivider" 
+          textureFile="EsoUI/Art/Miscellaneous/centerscreen_topDivider.dds"
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Dimensions y="4"/>
+        </Texture>
+
+      </Controls>
+
+    </TopLevelControl>
+
+
+
+<!-- 
+*******************************************************************************
+********     CURENT ITEM     **************************************************
+*******************************************************************************
+-->
+
+
+
+    <TopLevelControl 
+      name="AnLorXen_Builder_CurrentItem" 
+      clampedToScreen="true" 
+      hidden="false" 
+      mouseEnabled="true" 
+      movable="true"
+    >
+      <Anchor offsetX="20" offsetY="35" />
+      <Dimensions x="400" y="500" />
+      <Controls>
+        <Backdrop 
+          name="$(parent)_Backdrop" 
+          inherits="ZO_DefaultBackdrop" 
+        />
+
+        <Texture 
+          name="$(parent)_Icon" 
+          textureFile="esoui/art/icons/icon_missing.dds" 
+        > 
+        <!-- esoui/art/icons/icon_missing.dds -->
+        <!-- esoui/art/loot/loot_finesseitem.dds -->
+        <!-- esoui/art/miscellaneous/help_icon.dds -->
+        <!-- esoui/art/miscellaneous/new_icon.dds -->
+        <!-- esoui/art/miscellaneous/icon_numpad.dds -->
+        <!-- esoui/art/miscellaneous/status_locked.dds -->
+        <!-- esoui/art/miscellaneous/locked_disabled.dds -->
+        <!-- esoui/art/miscellaneous/timer_32.dds -->
+        <!-- esoui/art/miscellaneous/wait_icon.dds -->
+
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="2" 
+            offsetY="2" 
+          />
+          <Dimensions x="64" y="64" />
+        </Texture>
+
+        <Label 
+          name="$(parent)_Title" 
+          text="<No Current Item>"
+          font="ZoFontWinH3" 
+          color="EFEBBE" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Icon" 
+            relativePoint="TOPRIGHT" 
+            offsetX="16" 
+            offsetY="2" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-36" 
+            offsetY="2" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Alias" 
+          text=""
+          font="ZoFontWinH3" 
+          color="EFEBBE" 
+          hidden="false" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Backdrop 
+          name="$(parent)_BdAlias" 
+          inherits="ZO_SingleLineEditBackdrop_Keyboard" 
+          hidden="true" 
+          edgeColor="FF0000" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="6" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="44" 
+          />
+          <!-- <Dimensions x="80" y="36" /> -->
+          <Edge edgeSize="1" />
+        </Backdrop>
+
+        <EditBox 
+          name="$(parent)_EditAlias" 
+          inherits="ZO_DefaultEditForBackdrop" 
+          font="ZoFontWinH3" 
+          hidden="true" 
+        >
+          <OnFocusLost>
+            AnLorXen_Builder_EditAlias_OnFocusLost(self)
+          </OnFocusLost>        
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_BdAlias" 
+            relativePoint="TOPLEFT" 
+            offsetX="14" 
+            offsetY="3" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_BdAlias" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </EditBox>
+
+        <Button name="$(parent)_BtnRename" alpha="0.8">
+          <OnClicked>
+            AnLorXen_Builder_CurrentItem_Rename_OnClicked(self)
+          </OnClicked>
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-2" 
+            offsetY="34" 
+          />
+          <Dimensions x="32" y="32" />
+          <Textures 
+            normal="esoui/art/buttons/edit_up.dds" 
+            pressed="esoui/art/buttons/edit_down.dds" 
+            mouseOver="esoui/art/buttons/edit_over.dds"           
+          />
+        </Button>
+        
+        <Texture 
+          name="$(parent)_MenuTopDivider" 
+          textureFile="EsoUI/Art/Miscellaneous/centerscreen_topDivider.dds"
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="0" 
+            offsetY="76" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="0" 
+            offsetY="76" 
+          />
+          <Dimensions y="2"/>
+        </Texture>
+
+        <Control name="$(parent)_Menu">
+          <Anchor
+            point="TOPLEFT" 
+            relativeTo="$(parent)_MenuTopDivider" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="12" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_MenuTopDivider" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="12" 
+          />
+          <Dimensions y="36"/>
+          <Controls>
+
+            <Button 
+              name="$(parent)_BtnSetCoords" 
+              inherits="ZO_DefaultTextButton" 
+              text="Set" 
+            >
+              <OnClicked>
+                AnLorXen_Builder_CurrentItem_SetCoords_OnClicked(self)
+              </OnClicked>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)" 
+                relativePoint="TOPLEFT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="64" y="32" /> 
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <Button 
+              name="$(parent)_BtnGetCoords" 
+              inherits="ZO_DefaultTextButton" 
+              text="Get" 
+            >
+              <OnClicked>
+                AnLorXen_Builder_CurrentItem_GetCoords_OnClicked(self)
+              </OnClicked>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BtnSetCoords" 
+                relativePoint="TOPRIGHT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="64" y="32" />
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <!-- <Button 
+              name="$(parent)_BtnTestInherit" 
+              inherits="ZO_DefaultTextButton" 
+              text="Test" 
+            >
+              <OnClicked>
+                AnLorXen_Builder_CurrentItem_TestInherit_OnClicked(self)
+              </OnClicked>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BtnGetCoords" 
+                relativePoint="TOPRIGHT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="64" y="32" />
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button> -->
+
+          </Controls>
+        </Control>
+
+
+
+
+        <!-- *********************** -->
+
+        <Control name="$(parent)_Position">
+          <Anchor
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Menu" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="2" 
+            offsetY="10" 
+          />
+          <Dimensions x="192" y="360" />
+          <Controls>
+
+            <Backdrop 
+              name="$(parent)_Backdrop" 
+              centerColor="00000000" 
+              edgeColor="3D3D20" 
+            > 
+              <AnchorFill />
+              <Edge edgeSize="2" />
+            </Backdrop>
+
+            <Label 
+              name="$(parent)_Title" 
+              color="EFEBBE" 
+              font="ZoFontGameSmall" 
+              text="Position" 
+              horizontalAlignment="CENTER" 
+              verticalAlignment="CENTER" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativePoint="TOPLEFT" 
+                offsetY="3" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativePoint="TOPRIGHT" 
+                offsetY="3" 
+              />
+              <Dimensions y="30" />
+            </Label>
+
+
+
+
+            <Control name="$(parent)_IncrCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="4" 
+                offsetY="2" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="2" 
+              />
+              <Dimensions y="32" />
+              <Controls>
+
+                <Button 
+                  name="$(parent)_PosInc1" 
+                  inherits="AnLorXen_Builder_IncBtn" 
+                >
+                  <Anchor 
+                    point="BOTTOMLEFT"  
+                    relativeTo="$(parent)_Position" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="8" 
+                    offsetY="-8"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_PosInc2" 
+                  inherits="AnLorXen_Builder_IncBtn" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_PosInc1" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_PosInc3" 
+                  inherits="AnLorXen_Builder_IncBtn" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_PosInc2" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_PosInc4" 
+                  inherits="AnLorXen_Builder_IncBtn" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_PosInc3" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+              </Controls>
+            </Control>
+
+            <Control name="$(parent)_EditCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_IncrCtrls" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="4" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_IncrCtrls" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="0" 
+              />
+              <Dimensions y="120" />
+              <Controls>
+
+                <Control 
+                  name="$(parent)_PosX" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_Position" 
+                    relativePoint="TOPLEFT" 
+                    offsetX="8" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_PosY" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_PosX" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_PosZ" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_PosY" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+              </Controls>
+            </Control>
+
+            <Control name="$(parent)_DeltaCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_EditCtrls" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="30" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_EditCtrls" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="30" 
+              />
+              <Controls>
+
+                <Control 
+                  name="$(parent)_DeltaPosX" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)" 
+                    relativePoint="TOPLEFT" 
+                    offsetX="8" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_DeltaPosY" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_DeltaPosX" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_DeltaPosZ" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_DeltaPosY" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                
+
+              </Controls>
+            </Control>
+
+
+            <!-- ****************************** -->
+
+
+          </Controls>
+        </Control>
+
+        <!-- ****************************** -->
+        <!-- ****************************** -->
+
+        <Control name="$(parent)_Rotation">
+          <Anchor
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Menu" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="-2" 
+            offsetY="10" 
+          />
+          <Dimensions x="192" y="360" />
+          <Controls>
+
+            <Backdrop 
+              name="$(parent)_Backdrop" 
+              centerColor="00000000" 
+              edgeColor="3D3D20" 
+            > 
+              <AnchorFill />
+              <Edge edgeSize="2" />
+            </Backdrop>
+
+            <Label 
+              name="$(parent)_Title" 
+              color="EFEBBE" 
+              font="ZoFontGameSmall" 
+              text="Rotation" 
+              horizontalAlignment="CENTER" 
+              verticalAlignment="CENTER" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativePoint="TOPLEFT" 
+                offsetY="3" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativePoint="TOPRIGHT" 
+                offsetY="3" 
+              />
+              <Dimensions y="30" />
+            </Label>
+
+
+
+
+
+            <Control name="$(parent)_IncrCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="4" 
+                offsetY="2" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="2" 
+              />
+              <Dimensions y="32" />
+              <Controls>
+
+                <Button 
+                  name="$(parent)_RotInc1" 
+                  inherits="AnLorXen_Builder_IncBtn"
+                >
+                  <Anchor 
+                    point="BOTTOMLEFT"  
+                    relativeTo="$(parent)_Rotation" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="8" 
+                    offsetY="-8"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_RotInc2" 
+                  inherits="AnLorXen_Builder_IncBtn"
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_RotInc1" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_RotInc3" 
+                  inherits="AnLorXen_Builder_IncBtn"
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_RotInc2" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+                <Button 
+                  name="$(parent)_RotInc4" 
+                  inherits="AnLorXen_Builder_IncBtn"
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_RotInc3" 
+                    relativePoint="TOPRIGHT" 
+                    offsetX="4" 
+                    offsetY="0"
+                  />
+                </Button>
+
+
+              </Controls>
+            </Control>
+
+            <Control name="$(parent)_EditCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_IncrCtrls" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="4" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_IncrCtrls" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="0" 
+              />
+              <Dimensions y="120" />
+              <Controls>
+
+                <Control 
+                  name="$(parent)_RotX" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_Rotation" 
+                    relativePoint="TOPLEFT" 
+                    offsetX="8" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_RotY" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_RotX" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_RotZ" 
+                  inherits="AnLorXen_Builder_EditCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_RotY" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+              </Controls>
+            </Control>
+
+            <Control name="$(parent)_DeltaCtrls">
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_EditCtrls" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="30" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativeTo="$(parent)_EditCtrls" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="30" 
+              />
+              <Controls>
+
+                <Control 
+                  name="$(parent)_DeltaRotX" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)" 
+                    relativePoint="TOPLEFT" 
+                    offsetX="8" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_DeltaRotY" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_DeltaRotX" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+                <Control 
+                  name="$(parent)_DeltaRotZ" 
+                  inherits="AnLorXen_Builder_DeltaCtrl" 
+                >
+                  <Anchor 
+                    point="TOPLEFT"  
+                    relativeTo="$(parent)_DeltaRotY" 
+                    relativePoint="BOTTOMLEFT" 
+                    offsetX="0" 
+                    offsetY="8"
+                  />
+                </Control>
+
+              </Controls>
+            </Control>
+
+
+
+
+            <!-- ****************************** -->
+
+
+          </Controls>
+        </Control>        
+
+
+      </Controls>
+
+    </TopLevelControl>
+
+
+
+
+<!-- 
+*******************************************************************************
+*******     CURRENT GROUP     *************************************************
+*******************************************************************************
+-->
+
+
+
+
+
+    <TopLevelControl 
+      name="AnLorXen_Builder_CurrentGroup" 
+      clampedToScreen="true" 
+      hidden="false" 
+      mouseEnabled="true" 
+      movable="true" 
+    >
+      <Anchor offsetX="450" offsetY="35" />
+      <Dimensions x="660" y="360" />
+      <Controls>
+        <Backdrop 
+          name="$(parent)_Backdrop" 
+          inherits="ZO_DefaultBackdrop" 
+        />
+        <Label 
+          name="$(parent)_Title" 
+          text="<No Current Group>"
+          font="ZoFontWinH3" 
+          color="EFEBBE" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="16" 
+            offsetY="2" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-16" 
+            offsetY="2" 
+          />
+        </Label>
+
+
+
+
+
+        <Button name="$(parent)_BtnRename" alpha="0.8">
+          <OnClicked>
+            AnLorXen_Builder_CurrentGroup_Rename_OnClicked(self)
+          </OnClicked>
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-2" 
+            offsetY="2" 
+          />
+          <Dimensions x="32" y="32" />
+          <Textures 
+            normal="esoui/art/buttons/edit_up.dds" 
+            pressed="esoui/art/buttons/edit_down.dds" 
+            mouseOver="esoui/art/buttons/edit_over.dds"           
+          />
+        </Button>
+
+
+
+
+
+
+
+        <Texture 
+          name="$(parent)_TopDivider" 
+          textureFile="EsoUI/Art/Miscellaneous/centerscreen_topDivider.dds"
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Dimensions y="4"/>
+        </Texture>
+
+
+
+
+        <Control name="$(parent)Headers">
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_TopDivider" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="16" 
+          />
+          <Dimensions y="32" />
+          <Controls>
+
+            <Control 
+              name="$(parent)_Status" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "∎", "status",
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor point="TOPLEFT" />
+              <Dimensions x="32" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)Name" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "Name", "name", 
+                  ZO_SORT_ORDER_UP, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_Status" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="220" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_PosX" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "PX", "posX", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                offsetX="16" 
+                relativeTo="$(parent)Name" 
+                relativePoint="TOPRIGHT" 
+                />
+              <Dimensions x="64" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_PosY" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "PY", "posY", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_PosX" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="64" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_PosZ" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "PZ", "posZ", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_PosY" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="64" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_RotX" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "RX", "rotX", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                offsetX="16" 
+                relativeTo="$(parent)_PosZ" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="48" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_RotY" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "RY", "rotY", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_RotX" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="48" y="32" />
+            </Control>
+
+            <Control 
+              name="$(parent)_RotZ" 
+              inherits="ZO_SortHeader" 
+            >
+              <OnInitialized>
+                ZO_SortHeader_Initialize(
+                  self, "RZ", "rotZ", 
+                  ZO_SORT_ORDER_DOWN, TEXT_ALIGN_LEFT, "ZoFontWinH4"
+                )
+              </OnInitialized>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_RotY" 
+                relativePoint="TOPRIGHT" 
+              />
+              <Dimensions x="48" y="32" />
+            </Control>
+
+          </Controls>
+        </Control>
+        <Control 
+          name="$(parent)List" 
+          inherits="ZO_ScrollList" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)Headers" 
+            relativePoint="BOTTOMLEFT" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            offsetX="-12" 
+            offsetY="-64" 
+          />
+        </Control>
+
+
+        <Control name="$(parent)_Menu">
+          <Anchor
+            point="BOTTOMLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="" 
+          />
+          <Dimensions y="36"/>          
+          <Controls>
+
+            <Button 
+              name="$(parent)_BtnClearGroup" 
+              inherits="ZO_DefaultTextButton" 
+              text="Clear" 
+            >
+              <OnClicked>
+                AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked(self)
+              </OnClicked>
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)" 
+                relativePoint="TOPLEFT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="72" y="32" /> 
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+          </Controls>
+        </Control>
+
+
+
+
+
+      </Controls>
+    </TopLevelControl>
+
+    <Button name="AnLorXen_Builder_ItemRow" virtual="true">
+      <Dimensions y="30" />
+      <Anchor point="RIGHT" relativeTo="$(parent)" />
+      <OnMouseEnter>
+        _addon.ItemRowMouseEnter(self)
+      </OnMouseEnter>
+      <OnMouseExit>
+        _addon.ItemRowMouseExit(self)
+      </OnMouseExit>
+
+      <!-- <OnMouseUp>
+        _addon.ItemRowMouseUp(self, button, upInside)
+      </OnMouseUp> -->
+      <OnMouseUp>
+        AnLorXen_Builder_ItemRow_OnMouseUp(self, button, upInside)
+      </OnMouseUp>
+      
+      <Controls>
+
+        <Label 
+          name="$(parent)Status" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" />
+          <Dimensions x="32" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)Name" 
+          font="ZoFontWinH4" 
+        wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+          point="TOPLEFT" 
+          relativeTo="$(parent)Status" 
+          relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="220" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)PosX" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+          point="TOPLEFT" 
+          offsetX="16" 
+          relativeTo="$(parent)Name" 
+          relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="64" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)PosY" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+          point="TOPLEFT" 
+          relativeTo="$(parent)PosX" 
+          relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="64" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)PosZ" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+          point="TOPLEFT" 
+          relativeTo="$(parent)PosY" 
+          relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="64" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)RotX" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            offsetX="16" 
+            relativeTo="$(parent)PosZ" 
+            relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="48" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)RotY" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)RotX" 
+            relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="48" y="32" />
+        </Label>
+
+        <Label 
+          name="$(parent)RotZ" 
+          font="ZoFontWinH4" 
+          wrapMode="ELLIPSIS" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)RotY" 
+            relativePoint="TOPRIGHT" 
+          />
+          <Dimensions x="48" y="32" />
+        </Label>
+
+      </Controls>
+    </Button>
+
+
+
+
+
+
+<!-- 
+*******************************************************************************
+*******     DIAGNOSTIC     ****************************************************
+*******************************************************************************
+-->
+
+    <TopLevelControl 
+      name="AnLorXen_Builder_Diagnostic" 
+      clampedToScreen="true" 
+      hidden="true" 
+      mouseEnabled="true" 
+      movable="true"
+    >
+      <Anchor point="TOPRIGHT" offsetX="-20" offsetY="35" />
+      <Dimensions x="750" y="660" />
+      <Controls>
+        <Backdrop 
+          name="$(parent)_Backdrop" 
+          inherits="ZO_DefaultBackdrop" 
+        />
+        <Label 
+          name="$(parent)_Title" 
+          text="AnLorXen_Builder_Diagnostic"
+          font="ZoFontWinH3" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="16" 
+            offsetY="2" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-16" 
+            offsetY="2" 
+          />
+        </Label>
+        <Texture 
+          name="$(parent)_TopDivider" 
+          textureFile="EsoUI/Art/Miscellaneous/centerscreen_topDivider.dds"
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Dimensions y="4"/>
+        </Texture>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_1" 
+          text="Key01"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_TopDivider" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_TopDivider" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_1" 
+          text="Value01"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_1" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_1" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_2" 
+          text="Key02"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_1" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_1" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_2" 
+          text="Value02"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_2" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_2" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_3" 
+          text="Key03"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_2" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_2" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_3" 
+          text="Value03"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_3" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_3" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_4" 
+          text="Key04"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_3" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_3" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_4" 
+          text="Value04"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_4" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_4" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_5" 
+          text="Key05"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_4" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_4" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_5" 
+          text="Value05"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_5" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_5" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_6" 
+          text="Key06"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_5" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_5" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_6" 
+          text="Value06"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_6" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_6" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_7" 
+          text="Key07"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_6" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_6" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_7" 
+          text="Value07"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_7" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_7" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_8" 
+          text="Key08"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_7" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_7" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_8" 
+          text="Value08"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_8" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_8" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_9" 
+          text="Key09"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_8" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_8" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_9" 
+          text="Value09"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_9" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_9" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+
+        <!-- ****************************** -->
+
+        <Label 
+          name="$(parent)_Key_10" 
+          text="Key10"
+          font="ZoFontWinH5" 
+          color="CFDCBD" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Value_9" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Value_9" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="8" 
+          />
+        </Label>
+
+        <Label 
+          name="$(parent)_Value_10" 
+          text="Value10"
+          font="ZoFontWinH3" 
+          color="FFFFFF" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Key_10" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Key_10" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </Label>
+        
+
+      </Controls>
+
+    </TopLevelControl>
+
+
+
+
+
+  </Controls>
+</GuiXml>

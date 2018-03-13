@@ -1,0 +1,43 @@
+
+
+<Bindings>
+	<Layer name="SI_KEYBINDINGS_LAYER_HOUSING_EDITOR" allowFallthrough="false">
+		<Category name="ALX Builder">
+			<Action name="SELECT_ITEM">
+				<Down>AnLorXen_Builder_SelectItem()</Down>
+			</Action>
+			<Action name="ADD_ITEM">
+				<Down>AnLorXen_Builder_AddItemToGroup()</Down>
+			</Action>
+			<Action name="REMOVE_ITEM">
+				<Down>AnLorXen_Builder_RemoveItemFromGroup()</Down>
+			</Action>
+			<Action name="CLEAR_GROUP">
+				<Down>AnLorXen_Builder_ConfirmClearGroup()</Down>
+			</Action>
+			<Action name="ADD_GROUP">
+				<Down>AnLorXen_Builder_AddGroup()</Down>
+			</Action>
+			<Action name="RESTORE_GROUP">
+				<Down>AnLorXen_Builder_ConfirmRestoreGroup()</Down>
+			</Action>
+			<Action name="REMOVE_GROUP">
+				<Down>AnLorXen_Builder_ConfirmRemoveGroup()</Down>
+			</Action>
+		</Category>
+	</Layer>
+</Bindings>
+
+<!-- 
+<Bindings>
+  <Layer name="SI_KEYBINDINGS_LAYER_HOUSING_EDITOR" allowFallthrough="false">
+    <Category name="ALX Builder">
+      <Action name="SI_BINDING_NAME_SELECT_ITEM">
+        <Down>AnLorXen_Builder_SelectItem()</Down>
+      </Action>
+    </Category>
+  </Layer>
+</Bindings>
+ -->
+
+
