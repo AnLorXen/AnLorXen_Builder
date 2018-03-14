@@ -1010,6 +1010,69 @@ end
 
 
 
+
+
+_addon.ShowGroupRenameCtrl = function() 
+
+
+
+    -- if _addon.cfg.state.current.item.id == nil then 
+    --   return 
+    -- end 
+  
+    -- GetControl(_addon.cfg.gui.map.item.alias):SetHidden(true) 
+    -- GetControl(_addon.cfg.gui.map.item.bdAlias):SetHidden(false) 
+    -- GetControl(_addon.cfg.gui.map.item.editAlias):SetHidden(false) 
+  
+    -- if _addon.cfg.state.current.item.alias.isSet then 
+    --   GetControl(_addon.cfg.gui.map.item.editAlias)
+    --     :SetText(_addon.cfg.state.current.item.alias.name) 
+    -- else 
+    --   GetControl(_addon.cfg.gui.map.item.editAlias)
+    --     :SetText(_addon.cfg.state.current.item.name) 
+    -- end 
+    -- GetControl(_addon.cfg.gui.map.item.editAlias):TakeFocus() 
+  
+end 
+
+
+
+_addon.RenameCurrentGroup = function() 
+
+  local ctrl = _addon.cfg.gui.map.group 
+  local group = _addon.cfg.state.current.group 
+  -- TODO: group.name validation checks 
+
+
+
+  -- local ctrl = _addon.cfg.gui.map.item 
+  -- local item = _addon.cfg.state.current.item 
+  -- local safeKey = zo_getSafeId64Key(item.id) 
+  -- -- TODO: alias.name validation checks 
+
+  -- item.alias.name = GetControl(ctrl.editAlias):GetText()
+  -- item.alias.isSet = true 
+
+  -- if _addon.fids[safeKey] then 
+  --   _addon.fids[safeKey].alias.name = item.alias.name 
+  --   _addon.fids[safeKey].alias.isSet = true 
+  -- end 
+
+  -- GetControl(ctrl.editAlias):SetHidden(true) 
+  -- GetControl(ctrl.bdAlias):SetHidden(true) 
+
+  -- GetControl(ctrl.alias):SetHidden(false) 
+  -- GetControl(ctrl.alias):SetText(item.alias.name) 
+
+  -- -- TODO: check if item exists in group 
+  -- _addon.UpdateCurrentItemInGroup(item.id)   -- _addon.ItemList:Refresh() 
+
+
+end 
+
+
+
+
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 -------     GLOBALS     -------------------------------------------------------
@@ -1089,6 +1152,7 @@ end
 
 AnLorXen_Builder_CurrentGroup_Rename_OnClicked = function(_self) 
   d("AnLorXen_Builder_CurrentGroup_Rename_OnClicked") 
+  _addon.ShowGroupRenameCtrl() 
 end 
 
 
