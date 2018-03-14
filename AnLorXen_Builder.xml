@@ -472,6 +472,12 @@
           <OnClicked>
             AnLorXen_Builder_CurrentItem_Rename_OnClicked(self)
           </OnClicked>
+          <OnMouseEnter>
+              ZO_Tooltips_ShowTextTooltip(self, TOP, "Rename Item")
+          </OnMouseEnter>
+          <OnMouseExit>
+              ZO_Tooltips_HideTextTooltip()
+          </OnMouseExit>
           <Anchor 
             point="TOPRIGHT" 
             relativeTo="$(parent)" 
@@ -1132,7 +1138,7 @@
         />
         <Label 
           name="$(parent)_Title" 
-          text="<No Current Group>"
+          text=""
           font="ZoFontWinH3" 
           color="EFEBBE" 
           wrapMode="ELLIPSIS" 
@@ -1154,14 +1160,17 @@
           />
         </Label>
 
-
-
-
-
         <Button name="$(parent)_BtnRename" alpha="0.8">
           <OnClicked>
             AnLorXen_Builder_CurrentGroup_Rename_OnClicked(self)
           </OnClicked>
+          <OnMouseEnter>
+            ZO_Tooltips_ShowTextTooltip(self, TOP, "Rename Group")
+          </OnMouseEnter>
+          <OnMouseExit>
+            ZO_Tooltips_HideTextTooltip()
+          </OnMouseExit>
+
           <Anchor 
             point="TOPRIGHT" 
             relativeTo="$(parent)" 
@@ -1176,6 +1185,64 @@
             mouseOver="esoui/art/buttons/edit_over.dds"           
           />
         </Button>
+
+
+
+
+
+
+        <Backdrop 
+          name="$(parent)_BdGroupName" 
+          inherits="ZO_SingleLineEditBackdrop_Keyboard" 
+          hidden="true" 
+          edgeColor="FF0000" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="6" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="44" 
+          />
+          <!-- <Dimensions x="80" y="36" /> -->
+          <Edge edgeSize="1" />
+        </Backdrop>
+
+        <EditBox 
+          name="$(parent)_EditGroupName" 
+          inherits="ZO_DefaultEditForBackdrop" 
+          font="ZoFontWinH3" 
+          hidden="true" 
+        >
+          <OnFocusLost>
+            AnLorXen_Builder_EditAlias_OnFocusLost(self)
+          </OnFocusLost>        
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_BdGroupName" 
+            relativePoint="TOPLEFT" 
+            offsetX="14" 
+            offsetY="3" 
+          />
+          <Anchor 
+            point="BOTTOMRIGHT" 
+            relativeTo="$(parent)_BdGroupName" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="0" 
+          />
+        </EditBox>
+
+
+
+
 
 
 

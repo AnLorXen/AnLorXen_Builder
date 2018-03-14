@@ -73,7 +73,8 @@ _addon.cfg = {
       }, 
 
       group = {
-        topLevel = "AnLorXen_Builder_CurrentGroup"         
+        topLevel = "AnLorXen_Builder_CurrentGroup", 
+        name = "AnLorXen_Builder_CurrentGroup_Title" 
       } 
     } 
   }, 
@@ -83,7 +84,6 @@ _addon.cfg = {
     current = {
       zone = nil, 
       house = nil, 
-      group = nil, 
       delta = { 
         isSet = false, 
 
@@ -95,6 +95,9 @@ _addon.cfg = {
           position = { x = 0, y = 0, z = 0 }, 
           rotation = { x = 0, y = 0, z = 0 }
         } 
+      }, 
+      group = {
+        name = "<No Current Group>", 
       }, 
       item = { 
         id = nil, 
@@ -509,6 +512,8 @@ end
 
 
 _addon.BuildCurrentGroup = function() 
+  GetControl(_addon.cfg.gui.map.group.name)
+    :SetText(_addon.cfg.state.current.group.name) 
   _addon.ItemList = ALX_ItemList:New()	
   _addon.ItemList:Refresh() 
 end 
@@ -660,16 +665,6 @@ _addon.SetCurrentItem = function(_fid)
   item.id = _fid 
   item.name, item.icon, item.fdataId 
     = GetPlacedHousingFurnitureInfo(item.id) 
-
-
-
-
-  local result = GetPlacedHousingFurnitureQuality(item.id) 
-  d(result) 
-
-
-
-
     
   item.alias.isSet = false 
   item.alias.name = "" 
@@ -1088,12 +1083,6 @@ end
 
 AnLorXen_Builder_AddItemToGroup = function(_self) 
   -- d("event: AnLorXen_Builder_AddItemToGroup") 
-  -- _addon.SetCurrentItemFromReticle(_self) 
-  -- TODO: if SetCurrentItemFromReticle fails, AddItemToGroup still executes 
-
-  -- Will need to check if above succeeds before proceeding
-  -- if HousingEditorCanSelectTargettedFurniture() then 
-  -- end 
   _addon.AddCurrentItemToGroup() 
 end 
 
