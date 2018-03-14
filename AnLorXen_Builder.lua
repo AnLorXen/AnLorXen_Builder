@@ -1237,5 +1237,3 @@ EVENT_MANAGER:RegisterForEvent(
 --   _addon.TrackUnit
 -- )
 
-
--- Element115
