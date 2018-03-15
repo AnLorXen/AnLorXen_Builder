@@ -74,12 +74,15 @@ _addon.cfg = {
 
       group = {
         topLevel = "AnLorXen_Builder_CurrentGroup", 
-        name = "AnLorXen_Builder_CurrentGroup_Title" 
+        name = "AnLorXen_Builder_CurrentGroup_Title", 
+        bdName = "AnLorXen_Builder_CurrentGroup_BdGroupName", 
+        editName = "AnLorXen_Builder_CurrentGroup_EditGroupName" 
       } 
     } 
   }, 
 
 
+  
   state = {
     current = {
       zone = nil, 
@@ -305,11 +308,8 @@ end
 _addon.GetSelectedFid = function() 
   local result, fid 
   -- pick up and drop item to get FurnitureId 
-
-  -- Returns: number HousingRequestResult result 
-  -- result = 0 = HOUSING_REQUEST_RESULT_SUCCESS 
   result = HousingEditorSelectTargettedFurniture() 
-  if result == 0 then 
+  if result == HOUSING_REQUEST_RESULT_SUCCESS then 
     fid = HousingEditorGetSelectedFurnitureId() 
     HousingEditorRequestSelectedPlacement() 
     return fid 
@@ -1013,60 +1013,29 @@ end
 
 
 _addon.ShowGroupRenameCtrl = function() 
+  local ctrl = _addon.cfg.gui.map.group 
+  local group = _addon.cfg.state.current.group 
 
+  GetControl(ctrl.name):SetHidden(true) 
+  GetControl(ctrl.bdName):SetHidden(false) 
+  GetControl(ctrl.editName):SetHidden(false) 
 
-
-    -- if _addon.cfg.state.current.item.id == nil then 
-    --   return 
-    -- end 
-  
-    -- GetControl(_addon.cfg.gui.map.item.alias):SetHidden(true) 
-    -- GetControl(_addon.cfg.gui.map.item.bdAlias):SetHidden(false) 
-    -- GetControl(_addon.cfg.gui.map.item.editAlias):SetHidden(false) 
-  
-    -- if _addon.cfg.state.current.item.alias.isSet then 
-    --   GetControl(_addon.cfg.gui.map.item.editAlias)
-    --     :SetText(_addon.cfg.state.current.item.alias.name) 
-    -- else 
-    --   GetControl(_addon.cfg.gui.map.item.editAlias)
-    --     :SetText(_addon.cfg.state.current.item.name) 
-    -- end 
-    -- GetControl(_addon.cfg.gui.map.item.editAlias):TakeFocus() 
-  
+  GetControl(ctrl.editName):SetText(group.name) 
+  GetControl(ctrl.editName):TakeFocus()   
 end 
 
 
 
 _addon.RenameCurrentGroup = function() 
-
   local ctrl = _addon.cfg.gui.map.group 
   local group = _addon.cfg.state.current.group 
+
   -- TODO: group.name validation checks 
-
-
-
-  -- local ctrl = _addon.cfg.gui.map.item 
-  -- local item = _addon.cfg.state.current.item 
-  -- local safeKey = zo_getSafeId64Key(item.id) 
-  -- -- TODO: alias.name validation checks 
-
-  -- item.alias.name = GetControl(ctrl.editAlias):GetText()
-  -- item.alias.isSet = true 
-
-  -- if _addon.fids[safeKey] then 
-  --   _addon.fids[safeKey].alias.name = item.alias.name 
-  --   _addon.fids[safeKey].alias.isSet = true 
-  -- end 
-
-  -- GetControl(ctrl.editAlias):SetHidden(true) 
-  -- GetControl(ctrl.bdAlias):SetHidden(true) 
-
-  -- GetControl(ctrl.alias):SetHidden(false) 
-  -- GetControl(ctrl.alias):SetText(item.alias.name) 
-
-  -- -- TODO: check if item exists in group 
-  -- _addon.UpdateCurrentItemInGroup(item.id)   -- _addon.ItemList:Refresh() 
-
+  group.name = GetControl(ctrl.editName):GetText() 
+  GetControl(ctrl.bdName):SetHidden(true) 
+  GetControl(ctrl.editName):SetHidden(true) 
+  GetControl(ctrl.name):SetHidden(false) 
+  GetControl(ctrl.name):SetText(group.name) 
 
 end 
 
