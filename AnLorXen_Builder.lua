@@ -741,8 +741,6 @@ _addon.SetItemAlias = function()
 
   -- TODO: check if item exists in group 
   _addon.UpdateCurrentItemInGroup(item.id) 
-  -- _addon.ItemList:Refresh() 
-
 end 
 
 
@@ -921,9 +919,7 @@ _addon.ItemSpinCtrlClick = function()
 
     HousingEditorRequestChangeOrientation(
       _addon.cfg.state.current.item.id, 
-      newCoords.rotation.x, 
-      newCoords.rotation.y, 
-      newCoords.rotation.z
+      newCoords.rotation.x, newCoords.rotation.y, newCoords.rotation.z 
     ) 
 
   end 
@@ -1019,7 +1015,6 @@ _addon.ShowGroupRenameCtrl = function()
   GetControl(ctrl.name):SetHidden(true) 
   GetControl(ctrl.bdName):SetHidden(false) 
   GetControl(ctrl.editName):SetHidden(false) 
-
   GetControl(ctrl.editName):SetText(group.name) 
   GetControl(ctrl.editName):TakeFocus()   
 end 
@@ -1036,7 +1031,6 @@ _addon.RenameCurrentGroup = function()
   GetControl(ctrl.editName):SetHidden(true) 
   GetControl(ctrl.name):SetHidden(false) 
   GetControl(ctrl.name):SetText(group.name) 
-
 end 
 
 
