@@ -1036,6 +1036,13 @@
               </Controls>
             </Control>
 
+
+
+
+
+
+
+
             <Control name="$(parent)_DeltaCtrls">
               <Anchor 
                 point="TOPLEFT" 
@@ -1107,6 +1114,195 @@
 
       </Controls>
 
+    </TopLevelControl>
+
+
+
+
+<!-- 
+*******************************************************************************
+*******     ITEM OFFSET     ***************************************************
+*******************************************************************************
+-->
+
+
+    <TopLevelControl 
+      name="AnLorXen_Builder_ItemOffset" 
+      clampedToScreen="true" 
+      hidden="false" 
+      mouseEnabled="true" 
+      movable="true" 
+    >
+      <Anchor offsetX="30" offsetY="555" />
+      <Dimensions x="400" y="200" />
+      <Controls>
+        <Backdrop 
+          name="$(parent)_Backdrop" 
+          inherits="ZO_DefaultBackdrop" 
+        />
+        <Label 
+          name="$(parent)_Title" 
+          text="<No Item Offset>"
+          font="ZoFontWinH4" 
+          color="EFEBBE" 
+          wrapMode="ELLIPSIS" 
+          verticalAlignment="CENTER" 
+        >
+          <Anchor 
+            point="TOPLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
+            offsetX="16" 
+            offsetY="2" 
+          />
+          <Anchor 
+            point="TOPRIGHT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPRIGHT" 
+            offsetX="-16" 
+            offsetY="2" 
+          />
+        </Label>
+
+        <Control name="$(parent)_Position">
+          <Anchor
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMLEFT" 
+            offsetX="0" 
+            offsetY="10" 
+          />
+          <Dimensions x="192" y="160" />
+          <Controls>
+
+            <Label 
+              name="$(parent)_Title" 
+              color="EFEBBE" 
+              font="ZoFontGameSmall" 
+              text="Position" 
+              horizontalAlignment="CENTER" 
+              verticalAlignment="CENTER" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativePoint="TOPLEFT" 
+                offsetY="3" 
+              />
+              <Dimensions y="30" />
+            </Label>
+
+            <Control 
+              name="$(parent)_CoordX" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="4"
+              />
+            </Control>
+
+            <Control 
+              name="$(parent)_CoordY" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_CoordX" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="8"
+              />
+            </Control>
+
+            <Control 
+              name="$(parent)_CoordZ" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_CoordY" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="8"
+              />
+            </Control>            
+
+          </Controls>
+        </Control>
+
+        <Control name="$(parent)_Rotation">
+          <Anchor
+            point="TOPRIGHT" 
+            relativeTo="$(parent)_Title" 
+            relativePoint="BOTTOMRIGHT" 
+            offsetX="0" 
+            offsetY="10" 
+          />
+          <Dimensions x="192" y="160" />
+          <Controls>
+
+            <Label 
+              name="$(parent)_Title" 
+              color="EFEBBE" 
+              font="ZoFontGameSmall" 
+              text="Rotation" 
+              horizontalAlignment="CENTER" 
+              verticalAlignment="CENTER" 
+            >
+              <Anchor 
+                point="TOPRIGHT" 
+                relativePoint="TOPRIGHT" 
+                offsetY="3" 
+              />
+              <Dimensions y="30" />
+            </Label>
+
+            <Control 
+              name="$(parent)_CoordX" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="8"
+              />
+            </Control>
+
+            <Control 
+              name="$(parent)_CoordY" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_CoordX" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="8"
+              />
+            </Control>
+
+            <Control 
+              name="$(parent)_CoordZ" 
+              inherits="AnLorXen_Builder_DeltaCtrl" 
+            >
+              <Anchor 
+                point="TOPLEFT"  
+                relativeTo="$(parent)_CoordY" 
+                relativePoint="BOTTOMLEFT" 
+                offsetX="0" 
+                offsetY="8"
+              />
+            </Control>
+
+          
+          </Controls>
+        </Control>
+      </Controls>
     </TopLevelControl>
 
 
