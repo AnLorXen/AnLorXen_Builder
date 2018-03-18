@@ -1121,19 +1121,19 @@
 
 <!-- 
 *******************************************************************************
-*******     ITEM OFFSET     ***************************************************
+*******     ITEM DELTA     ****************************************************
 *******************************************************************************
 -->
 
 
     <TopLevelControl 
-      name="AnLorXen_Builder_ItemOffset" 
+      name="AnLorXen_Builder_ItemDelta" 
       clampedToScreen="true" 
       hidden="false" 
       mouseEnabled="true" 
       movable="true" 
     >
-      <Anchor offsetX="30" offsetY="555" />
+      <Anchor offsetX="20" offsetY="555" />
       <Dimensions x="400" y="200" />
       <Controls>
         <Backdrop 
@@ -1142,7 +1142,7 @@
         />
         <Label 
           name="$(parent)_Title" 
-          text="<No Item Offset>"
+          text="<No Item Delta>"
           font="ZoFontWinH4" 
           color="EFEBBE" 
           wrapMode="ELLIPSIS" 
@@ -1167,10 +1167,10 @@
         <Control name="$(parent)_Position">
           <Anchor
             point="TOPLEFT" 
-            relativeTo="$(parent)_Title" 
-            relativePoint="BOTTOMLEFT" 
+            relativeTo="$(parent)" 
+            relativePoint="TOPLEFT" 
             offsetX="0" 
-            offsetY="10" 
+            offsetY="36" 
           />
           <Dimensions x="192" y="160" />
           <Controls>
@@ -1186,6 +1186,11 @@
               <Anchor 
                 point="TOPLEFT" 
                 relativePoint="TOPLEFT" 
+                offsetY="3" 
+              />
+              <Anchor 
+                point="TOPRIGHT" 
+                relativePoint="TOPRIGHT" 
                 offsetY="3" 
               />
               <Dimensions y="30" />
@@ -1235,11 +1240,11 @@
 
         <Control name="$(parent)_Rotation">
           <Anchor
-            point="TOPRIGHT" 
-            relativeTo="$(parent)_Title" 
-            relativePoint="BOTTOMRIGHT" 
+            point="TOPLEFT" 
+            relativeTo="$(parent)_Position" 
+            relativePoint="TOPRIGHT" 
             offsetX="0" 
-            offsetY="10" 
+            offsetY="0" 
           />
           <Dimensions x="192" y="160" />
           <Controls>
@@ -1252,6 +1257,11 @@
               horizontalAlignment="CENTER" 
               verticalAlignment="CENTER" 
             >
+              <Anchor 
+                point="TOPLEFT" 
+                relativePoint="TOPLEFT" 
+                offsetY="3" 
+              />
               <Anchor 
                 point="TOPRIGHT" 
                 relativePoint="TOPRIGHT" 
@@ -1269,7 +1279,7 @@
                 relativeTo="$(parent)_Title" 
                 relativePoint="BOTTOMLEFT" 
                 offsetX="0" 
-                offsetY="8"
+                offsetY="4"
               />
             </Control>
 

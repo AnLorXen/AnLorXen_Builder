@@ -38,7 +38,25 @@ _addon.cfg = {
       }      
     }, 
 
-    map = {
+    map = { 
+      delta = {
+        topLevel = "AnLorXen_Builder_ItemDelta", 
+        name = "AnLorXen_Builder_ItemDelta_Title", 
+
+        coordPosX = "AnLorXen_Builder_ItemDelta_Position_CoordX_LabelCoord", 
+        offsetPosX = "AnLorXen_Builder_ItemDelta_Position_CoordX_EditBox", 
+        coordPosY = "AnLorXen_Builder_ItemDelta_Position_CoordY_LabelCoord", 
+        offsetPosY = "AnLorXen_Builder_ItemDelta_Position_CoordY_EditBox", 
+        coordPosZ = "AnLorXen_Builder_ItemDelta_Position_CoordZ_LabelCoord", 
+        offsetPosZ = "AnLorXen_Builder_ItemDelta_Position_CoordZ_EditBox", 
+        
+        coordRotX = "AnLorXen_Builder_ItemDelta_Rotation_CoordX_LabelCoord", 
+        offsetRotX = "AnLorXen_Builder_ItemDelta_Rotation_CoordX_EditBox", 
+        coordRotY = "AnLorXen_Builder_ItemDelta_Rotation_CoordY_LabelCoord", 
+        offsetRotY = "AnLorXen_Builder_ItemDelta_Rotation_CoordY_EditBox", 
+        coordRotZ = "AnLorXen_Builder_ItemDelta_Rotation_CoordZ_LabelCoord", 
+        offsetRotZ = "AnLorXen_Builder_ItemDelta_Rotation_CoordZ_EditBox"         
+      }, 
       item = {
         topLevel = "AnLorXen_Builder_CurrentItem", 
         icon = "AnLorXen_Builder_CurrentItem_Icon", 
@@ -87,8 +105,17 @@ _addon.cfg = {
     current = {
       zone = nil, 
       house = nil, 
+
       delta = { 
         isSet = false, 
+        position = {
+          coord = { x = 0, y = 0, z = 0 }, 
+          offset = { x = 0, y = 0, z = 0 }
+        }, 
+        rotation = {
+          coord = { x = 0, y = 0, z = 0 }, 
+          offset = { x = 0, y = 0, z = 0 }
+        }, 
 
         coord = {
           position = { x = 0, y = 0, z = 0 }, 
@@ -99,9 +126,11 @@ _addon.cfg = {
           rotation = { x = 0, y = 0, z = 0 }
         } 
       }, 
+
       group = {
         name = "<No Current Group>", 
       }, 
+
       item = { 
         id = nil, 
         fid = nil, 
@@ -447,38 +476,51 @@ _addon.BuildCurrentItem = function()
   GetControl(ctrlEditRot .. "_RotY_Label"):SetColor(0, 1, 0, 1) 
   GetControl(ctrlEditRot .. "_RotZ_Label"):SetText("Z:") 
   GetControl(ctrlEditRot .. "_RotZ_Label"):SetColor(0.2, 0.2, 1, 1) 
+  
+end 
 
-  -- position delta controls
-  GetControl(ctrlDeltaPos .. "_DeltaPosX_LabelAxis"):SetText("x:") 
-  GetControl(ctrlDeltaPos .. "_DeltaPosX_LabelAxis"):SetColor(1, 0, 0, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordPosX):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditPosX):SetText("0") 
 
-  GetControl(ctrlDeltaPos .. "_DeltaPosY_LabelAxis"):SetText("y:") 
-  GetControl(ctrlDeltaPos .. "_DeltaPosY_LabelAxis"):SetColor(0, 1, 0, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordPosY):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditPosY):SetText("0") 
 
-  GetControl(ctrlDeltaPos .. "_DeltaPosZ_LabelAxis"):SetText("z:") 
-  GetControl(ctrlDeltaPos .. "_DeltaPosZ_LabelAxis"):SetColor(0.2, 0.2, 1, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordPosZ):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditPosZ):SetText("0") 
+_addon.BuildItemDelta = function() 
+  local ctrl = _addon.cfg.gui.map.delta 
+  local deltaPos = _addon.cfg.state.current.delta.position 
+  local deltaRot = _addon.cfg.state.current.delta.rotation 
+  local sPosCoordX = "AnLorXen_Builder_ItemDelta_Position_CoordX_LabelAxis" 
+  local sPosCoordY = "AnLorXen_Builder_ItemDelta_Position_CoordY_LabelAxis" 
+  local sPosCoordZ = "AnLorXen_Builder_ItemDelta_Position_CoordZ_LabelAxis" 
+  local sRotCoordX = "AnLorXen_Builder_ItemDelta_Rotation_CoordX_LabelAxis" 
+  local sRotCoordY = "AnLorXen_Builder_ItemDelta_Rotation_CoordY_LabelAxis" 
+  local sRotCoordZ = "AnLorXen_Builder_ItemDelta_Rotation_CoordZ_LabelAxis" 
 
-  -- rotation delta controls
-  GetControl(ctrlDeltaRot .. "_DeltaRotX_LabelAxis"):SetText("x:") 
-  GetControl(ctrlDeltaRot .. "_DeltaRotX_LabelAxis"):SetColor(1, 0, 0, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordRotX):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditRotX):SetText("0") 
+  GetControl(sPosCoordX):SetText("x:") 
+  GetControl(sPosCoordX):SetColor(1, 0, 0, 1) 
+  GetControl(ctrl.coordPosX):SetText(deltaPos.coord.x) 
+  GetControl(ctrl.offsetPosX):SetText(deltaPos.offset.x) 
 
-  GetControl(ctrlDeltaRot .. "_DeltaRotY_LabelAxis"):SetText("y:") 
-  GetControl(ctrlDeltaRot .. "_DeltaRotY_LabelAxis"):SetColor(0, 1, 0, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordRotY):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditRotY):SetText("0") 
+  GetControl(sPosCoordY):SetText("y:") 
+  GetControl(sPosCoordY):SetColor(0, 1, 0, 1) 
+  GetControl(ctrl.coordPosY):SetText(deltaPos.coord.y) 
+  GetControl(ctrl.offsetPosY):SetText(deltaPos.offset.y) 
 
-  GetControl(ctrlDeltaRot .. "_DeltaRotZ_LabelAxis"):SetText("z:") 
-  GetControl(ctrlDeltaRot .. "_DeltaRotZ_LabelAxis"):SetColor(0.2, 0.2, 1, 1) 
-  GetControl(_addon.cfg.gui.map.item.deltaCoordRotZ):SetText("-") 
-  GetControl(_addon.cfg.gui.map.item.deltaEditRotZ):SetText("0") 
+  GetControl(sPosCoordZ):SetText("z:") 
+  GetControl(sPosCoordZ):SetColor(0.2, 0.2, 1, 1) 
+  GetControl(ctrl.coordPosZ):SetText(deltaPos.coord.z) 
+  GetControl(ctrl.offsetPosZ):SetText(deltaPos.offset.z) 
+
+  GetControl(sRotCoordX):SetText("x:") 
+  GetControl(sRotCoordX):SetColor(1, 0, 0, 1) 
+  GetControl(ctrl.coordRotX):SetText(deltaRot.coord.x) 
+  GetControl(ctrl.offsetRotX):SetText(deltaRot.offset.x) 
+
+  GetControl(sRotCoordY):SetText("y:") 
+  GetControl(sRotCoordY):SetColor(0, 1, 0, 1) 
+  GetControl(ctrl.coordRotY):SetText(deltaRot.coord.y) 
+  GetControl(ctrl.offsetRotY):SetText(deltaRot.offset.y) 
+
+  GetControl(sRotCoordZ):SetText("z:") 
+  GetControl(sRotCoordZ):SetColor(0.2, 0.2, 1, 1) 
+  GetControl(ctrl.coordRotZ):SetText(deltaRot.coord.z) 
+  GetControl(ctrl.offsetRotZ):SetText(deltaRot.offset.z) 
   
 end 
 
@@ -752,93 +794,93 @@ end
 
 
 _addon.ItemSetCoords = function() 
-  -- TODO: check if current item exists
-
-  local ctrl = _addon.cfg.gui.map.item 
-  local item = _addon.cfg.state.current.item.updated 
-  local coord = _addon.cfg.state.current.delta.coord 
+  -- TODO: check if current item exists 
+  local ctrlItem = _addon.cfg.gui.map.item 
+  local ctrlDelta = _addon.cfg.gui.map.delta 
+  local posCoord = _addon.cfg.state.current.delta.position.coord 
+  local rotCoord = _addon.cfg.state.current.delta.rotation.coord 
+  local item = _addon.cfg.state.current.item.updated   
 
   _addon.cfg.state.current.delta.isSet = true 
 
-  coord.position.x = item.position.x 
-  GetControl(ctrl.deltaCoordPosX):SetText(coord.position.x) 
-  coord.position.y = item.position.y 
-  GetControl(ctrl.deltaCoordPosY):SetText(coord.position.y) 
-  coord.position.z = item.position.z 
-  GetControl(ctrl.deltaCoordPosZ):SetText(coord.position.z) 
+  posCoord.x = item.position.x 
+  GetControl(ctrlDelta.coordPosX):SetText(posCoord.x) 
+  posCoord.y = item.position.y 
+  GetControl(ctrlDelta.coordPosY):SetText(posCoord.y) 
+  posCoord.z = item.position.z 
+  GetControl(ctrlDelta.coordPosZ):SetText(posCoord.z) 
 
-  coord.rotation.x = item.rotation.x 
-  GetControl(ctrl.deltaCoordRotX):SetText(
-    _addon.RadiansToDegreeInteger(coord.rotation.x)
-  ) 
-  coord.rotation.y = item.rotation.y 
-  GetControl(ctrl.deltaCoordRotY):SetText(
-    _addon.RadiansToDegreeInteger(coord.rotation.y)
-  ) 
-  coord.rotation.z = item.rotation.z 
-  GetControl(ctrl.deltaCoordRotZ):SetText(
-    _addon.RadiansToDegreeInteger(coord.rotation.z)
-  ) 
+  rotCoord.x = item.rotation.x 
+  GetControl(ctrlDelta.coordRotX)
+    :SetText(_addon.RadiansToDegreeInteger(rotCoord.x)) 
+  rotCoord.y = item.rotation.y 
+  GetControl(ctrlDelta.coordRotY)
+    :SetText(_addon.RadiansToDegreeInteger(rotCoord.y)) 
+  rotCoord.z = item.rotation.z 
+  GetControl(ctrlDelta.coordRotZ)
+    :SetText(_addon.RadiansToDegreeInteger(rotCoord.z)) 
+
 end 
 
 
 
 _addon.ItemGetCoords = function() 
+  local newPosX, newPosY, newPosZ, newRotX, newRotY, newRotZ 
+  local posCoord = _addon.cfg.state.current.delta.position.coord 
+  local posOffset = _addon.cfg.state.current.delta.position.offset 
+  local rotCoord = _addon.cfg.state.current.delta.rotation.coord 
+  local rotOffset = _addon.cfg.state.current.delta.rotation.offset 
+  local ctrlItem = _addon.cfg.gui.map.item 
+  local ctrlDelta = _addon.cfg.gui.map.delta 
   local item = _addon.cfg.state.current.item.updated 
-  local coord = _addon.cfg.state.current.delta.coord 
-  local offset = _addon.cfg.state.current.delta.offset 
-  local ctrl = _addon.cfg.gui.map.item 
-
-  local newPosX = coord.position.x + offset.position.x 
-  GetControl(ctrl.editPosX):SetText(newPosX) 
-  GetControl(ctrl.deltaCoordPosX):SetText(newPosX) 
+  
+  newPosX = posCoord.x + posOffset.x 
+  GetControl(ctrlItem.editPosX):SetText(newPosX) 
+  GetControl(ctrlDelta.coordPosX):SetText(newPosX) 
   item.position.x = newPosX 
-  coord.position.x = newPosX 
-
-  local newPosY = coord.position.y + offset.position.y 
-  GetControl(ctrl.editPosY):SetText(newPosY) 
-  GetControl(ctrl.deltaCoordPosY):SetText(newPosY) 
+  posCoord.x = newPosX 
+  
+  newPosY = posCoord.y + posOffset.y 
+  GetControl(ctrlItem.editPosY):SetText(newPosY) 
+  GetControl(ctrlDelta.coordPosY):SetText(newPosY) 
   item.position.y = newPosY 
-  coord.position.y = newPosY 
-
-  local newPosZ = coord.position.z + offset.position.z 
-  GetControl(ctrl.editPosZ):SetText(newPosZ) 
-  GetControl(ctrl.deltaCoordPosZ):SetText(newPosZ) 
+  posCoord.y = newPosY 
+  
+  newPosZ = posCoord.z + posOffset.z 
+  GetControl(ctrlItem.editPosZ):SetText(newPosZ) 
+  GetControl(ctrlDelta.coordPosZ):SetText(newPosZ) 
   item.position.z = newPosZ 
-  coord.position.z = newPosZ 
-
-
-  local newRotX = coord.rotation.x + offset.rotation.x 
-  GetControl(ctrl.editRotX)
+  posCoord.z = newPosZ 
+  
+  newRotX = rotCoord.x + rotOffset.x 
+  GetControl(ctrlItem.editRotX)
     :SetText(_addon.RadiansToDegreeInteger(newRotX)) 
-  GetControl(ctrl.deltaCoordRotX)
+  GetControl(ctrlDelta.coordRotX)
     :SetText(_addon.RadiansToDegreeInteger(newRotX)) 
   item.rotation.x = newRotX 
-  coord.rotation.x = newRotX 
+  rotCoord.x = newRotX 
   
-  local newRotY = coord.rotation.y + offset.rotation.y 
-  GetControl(ctrl.editRotY)
+  newRotY = rotCoord.y + rotOffset.y 
+  GetControl(ctrlItem.editRotY)
     :SetText(_addon.RadiansToDegreeInteger(newRotY)) 
-  GetControl(ctrl.deltaCoordRotY)
+  GetControl(ctrlDelta.coordRotY)
     :SetText(_addon.RadiansToDegreeInteger(newRotY)) 
   item.rotation.y = newRotY 
-  coord.rotation.y = newRotY 
-
-  local newRotZ = coord.rotation.z + offset.rotation.z 
-  GetControl(ctrl.editRotZ)
+  rotCoord.y = newRotY 
+  
+  newRotZ = rotCoord.z + rotOffset.z 
+  GetControl(ctrlItem.editRotZ)
     :SetText(_addon.RadiansToDegreeInteger(newRotZ)) 
-  GetControl(ctrl.deltaCoordRotZ)
+  GetControl(ctrlDelta.coordRotZ)
     :SetText(_addon.RadiansToDegreeInteger(newRotZ)) 
   item.rotation.z = newRotZ 
-  coord.rotation.z = newRotZ 
-  
+  rotCoord.z = newRotZ 
 
   HousingEditorRequestChangePositionAndOrientation(
     _addon.cfg.state.current.item.id, 
     newPosX, newPosY, newPosZ, newRotX, newRotY, newRotZ
   ) 
   _addon.UpdateCurrentItemInGroup(_addon.cfg.state.current.item.id) 
-
 end 
 
 
@@ -953,19 +995,16 @@ end
 
 _addon.ItemDeltaCtrlLostFocus = function() 
   -- TODO: Confirm entry is numeric 
+  local posOffset = _addon.cfg.state.current.delta.position.offset 
+  local rotOffset = _addon.cfg.state.current.delta.rotation.offset 
+  local ctrl = _addon.cfg.gui.map.delta 
 
-  local offset = _addon.cfg.state.current.delta.offset 
-  local ctrlDelta = _addon.cfg.gui.map.item 
-
-  offset.position.x = GetControl(ctrlDelta.deltaEditPosX):GetText() 
-  offset.position.y = GetControl(ctrlDelta.deltaEditPosY):GetText() 
-  offset.position.z = GetControl(ctrlDelta.deltaEditPosZ):GetText() 
-  offset.rotation.x 
-    = math.rad(GetControl(ctrlDelta.deltaEditRotX):GetText()) 
-  offset.rotation.y 
-    = math.rad(GetControl(ctrlDelta.deltaEditRotY):GetText()) 
-  offset.rotation.z 
-    = math.rad(GetControl(ctrlDelta.deltaEditRotZ):GetText()) 
+  posOffset.x = GetControl(ctrl.offsetPosX):GetText() 
+  posOffset.y = GetControl(ctrl.offsetPosY):GetText() 
+  posOffset.z = GetControl(ctrl.offsetPosZ):GetText() 
+  rotOffset.x = math.rad(GetControl(ctrl.offsetRotX):GetText()) 
+  rotOffset.y = math.rad(GetControl(ctrl.offsetRotY):GetText()) 
+  rotOffset.z = math.rad(GetControl(ctrl.offsetRotZ):GetText()) 
 
 end 
 
@@ -1160,7 +1199,9 @@ end
 _addon.Init = function(_eventCode, _addOnName) 
   if _addOnName ~= "AnLorXen_Builder" then return end   
   
-  _addon.BuildCurrentItem()   
+  _addon.BuildCurrentItem() 
+
+  _addon.BuildItemDelta() 
 
   _addon.BuildCurrentGroup() 
     
