@@ -59,11 +59,11 @@ _addon.cfg = {
       }, 
       item = {
         topLevel = "AnLorXen_Builder_CurrentItem", 
-        icon = "AnLorXen_Builder_CurrentItem_Icon", 
-        zosName = "AnLorXen_Builder_CurrentItem_Title", 
-        alias = "AnLorXen_Builder_CurrentItem_Alias", 
-        bdAlias = "AnLorXen_Builder_CurrentItem_BdAlias", 
-        editAlias = "AnLorXen_Builder_CurrentItem_EditAlias", 
+        icon = "AnLorXen_Builder_CurrentItem_Header_Icon", 
+        zosName = "AnLorXen_Builder_CurrentItem_Header_Title", 
+        alias = "AnLorXen_Builder_CurrentItem_Header_Alias", 
+        bdAlias = "AnLorXen_Builder_CurrentItem_Header_BdAlias", 
+        editAlias = "AnLorXen_Builder_CurrentItem_Header_EditAlias", 
 
         incrPos = "AnLorXen_Builder_CurrentItem_Position_IncrCtrls_PosInc", 
         incrRot = "AnLorXen_Builder_CurrentItem_Rotation_IncrCtrls_RotInc", 
@@ -92,9 +92,9 @@ _addon.cfg = {
 
       group = {
         topLevel = "AnLorXen_Builder_CurrentGroup", 
-        name = "AnLorXen_Builder_CurrentGroup_Title", 
-        bdName = "AnLorXen_Builder_CurrentGroup_BdGroupName", 
-        editName = "AnLorXen_Builder_CurrentGroup_EditGroupName" 
+        name = "AnLorXen_Builder_CurrentGroup_Header_Title", 
+        bdName = "AnLorXen_Builder_CurrentGroup_Header_BdGroupName", 
+        editName = "AnLorXen_Builder_CurrentGroup_Header_EditGroupName" 
       } 
     } 
   }, 
@@ -1082,9 +1082,9 @@ end
 -------------------------------------------------------------------------------
 
 
--- AnLorXen_Builder_CurrentItem_TestInherit_OnClicked = function(_self) 
---   d(_self:GetName()) 
--- end 
+AnLorXen_Builder_CurrentItem_TestInherit_OnClicked = function(_self) 
+  d(_self:GetName()) 
+end 
 
 
 AnLorXen_Builder_CurrentItem_Rename_OnClicked = function(_self) 
@@ -1100,11 +1100,11 @@ end
 
 
 
-AnLorXen_Builder_CurrentItem_SetCoords_OnClicked = function(_self) 
+AnLorXen_Builder_ItemDelta_SetCoords_OnClicked = function(_self) 
   _addon.ItemSetCoords() 
 end 
 
-AnLorXen_Builder_CurrentItem_GetCoords_OnClicked = function(_self) 
+AnLorXen_Builder_ItemDelta_GetCoords_OnClicked = function(_self) 
   _addon.ItemGetCoords() 
 end 
 
