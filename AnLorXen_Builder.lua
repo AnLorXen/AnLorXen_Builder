@@ -41,7 +41,7 @@ _addon.cfg = {
     map = { 
       delta = {
         topLevel = "AnLorXen_Builder_ItemDelta", 
-        name = "AnLorXen_Builder_ItemDelta_Title", 
+        name = "AnLorXen_Builder_ItemDelta_Header_Title", 
 
         coordPosX = "AnLorXen_Builder_ItemDelta_Position_CoordX_LabelCoord", 
         offsetPosX = "AnLorXen_Builder_ItemDelta_Position_CoordX_EditBox", 
@@ -418,6 +418,7 @@ _addon.ShowBuilderGui = function()
   -- GetControl("AnLorXen_Builder_Diagnostic"):SetHidden(false) 
 
   GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(false) 
+  GetControl(_addon.cfg.gui.map.delta.topLevel):SetHidden(false) 
   GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(false) 
   _addon.cfg.state.hidden = false 
 end 
@@ -427,6 +428,7 @@ _addon.HideBuilderGui = function()
   -- GetControl("AnLorXen_Builder_Diagnostic"):SetHidden(true) 
 
   GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(true) 
+  GetControl(_addon.cfg.gui.map.delta.topLevel):SetHidden(true) 
   GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(true) 
   _addon.cfg.state.hidden = true 
 end 
@@ -781,15 +783,33 @@ _addon.SetItemAlias = function()
   GetControl(ctrl.alias):SetHidden(false) 
   GetControl(ctrl.alias):SetText(item.alias.name) 
 
+  if _addon.cfg.state.current.delta.isSet then 
+    GetControl(_addon.cfg.gui.map.delta.name):SetText(item.alias.name) 
+  end 
+
   -- TODO: check if item exists in group 
   _addon.UpdateCurrentItemInGroup(item.id) 
 end 
 
 
 
-
-
-
+_addon.ToggleItemDeltaCtrl = function() 
+  local delta = _addon.cfg.state.current.delta 
+  local ctrl = _addon.cfg.gui.map.delta 
+  if delta.isSet then 
+    GetControl(ctrl.topLevel):SetHidden(true) 
+    delta.isSet = false 
+  else 
+    if _addon.cfg.state.current.item.alias.isSet then 
+      GetControl(ctrl.name):SetText(_addon.cfg.state.current.item.alias.name) 
+    else 
+      GetControl(ctrl.name):SetText(_addon.cfg.state.current.item.name) 
+    end       
+    _addon.ItemSetCoords() 
+    GetControl(ctrl.topLevel):SetHidden(false) 
+    -- delta.isSet = true 
+  end 
+end 
 
 
 
@@ -1082,21 +1102,26 @@ end
 -------------------------------------------------------------------------------
 
 
-AnLorXen_Builder_CurrentItem_TestInherit_OnClicked = function(_self) 
-  d(_self:GetName()) 
-end 
-
 
 AnLorXen_Builder_CurrentItem_Rename_OnClicked = function(_self) 
   -- d("(964) event: AnLorXen_Builder_CurrentItem_Rename_OnClicked") 
   _addon.ShowItemAliasCtrl() 
 end 
 
-
-AnLorXen_Builder_EditAlias_OnFocusLost = function(_self) 
+AnLorXen_Builder_CurrentItem_EditAlias_OnFocusLost = function(_self) 
   -- d("(972) event: AnLorXen_Builder_EditAlias_OnFocusLost") 
   _addon.SetItemAlias()   
 end 
+
+AnLorXen_Builder_CurrentItem_ShowDelta_OnClicked = function(_self) 
+  -- d(_self:GetName()) 
+  _addon.ToggleItemDeltaCtrl() 
+end 
+
+AnLorXen_Builder_CurrentItem_Test_OnClicked = function(_self) 
+  d(_self:GetName()) 
+end 
+
 
 
 

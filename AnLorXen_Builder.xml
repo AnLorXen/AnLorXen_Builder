@@ -593,7 +593,7 @@
               hidden="true" 
             >
               <OnFocusLost>
-                AnLorXen_Builder_EditAlias_OnFocusLost(self)
+                AnLorXen_Builder_CurrentItem_EditAlias_OnFocusLost(self)
               </OnFocusLost>        
               <Anchor 
                 point="TOPLEFT" 
@@ -1013,13 +1013,10 @@
           <Controls>
 
             <Button 
-              name="$(parent)_BtnTestInherit" 
+              name="$(parent)_BtnShowDelta" 
               inherits="ZO_DefaultTextButton" 
-              text="Test" 
+              text="Delta" 
             >
-              <OnClicked>
-                AnLorXen_Builder_CurrentItem_TestInherit_OnClicked(self)
-              </OnClicked>
               <Anchor 
                 point="TOPLEFT" 
                 relativeTo="$(parent)" 
@@ -1028,6 +1025,32 @@
                 offsetY="0" 
               />
               <Dimensions x="64" y="32" />
+              <OnClicked>
+                AnLorXen_Builder_CurrentItem_ShowDelta_OnClicked(self)
+              </OnClicked>
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <Button 
+              name="$(parent)_BtnTest" 
+              inherits="ZO_DefaultTextButton" 
+              text="Test" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BtnShowDelta" 
+                relativePoint="TOPRIGHT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="64" y="32" />
+              <OnClicked>
+                AnLorXen_Builder_CurrentItem_Test_OnClicked(self)
+              </OnClicked>
               <Textures 
                 normal="esoui/art/buttons/swatchframe_down.dds" 
                 pressed="esoui/art/buttons/swatchframe_down.dds" 
@@ -1055,7 +1078,7 @@
     <TopLevelControl 
       name="AnLorXen_Builder_ItemDelta" 
       clampedToScreen="true" 
-      hidden="false" 
+      hidden="true" 
       mouseEnabled="true" 
       movable="true" 
     >
@@ -1400,15 +1423,11 @@
             point="TOPLEFT" 
             relativeTo="$(parent)" 
             relativePoint="TOPLEFT" 
-            offsetX="0" 
-            offsetY="0" 
           />
           <Anchor 
             point="TOPRIGHT" 
             relativeTo="$(parent)" 
             relativePoint="TOPRIGHT" 
-            offsetX="0" 
-            offsetY="0" 
           />
           <Dimensions y="40" />
           <Controls>
