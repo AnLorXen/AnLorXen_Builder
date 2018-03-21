@@ -136,7 +136,7 @@ _addon.cfg = {
         fid = nil, 
         fdataId = nil, 
         icon = "", 
-        name = "", 
+        name = "<No Current Item>", 
         alias = {
           isSet = false, 
           name = "" 
@@ -441,6 +441,9 @@ _addon.BuildCurrentItem = function()
   local ctrlDeltaPos = "AnLorXen_Builder_CurrentItem_Position_DeltaCtrls" 
   local ctrlDeltaRot = "AnLorXen_Builder_CurrentItem_Rotation_DeltaCtrls" 
 
+  GetControl(_addon.cfg.gui.map.item.zosName)
+    :SetText(_addon.cfg.state.current.item.name)
+
   -- position increment buttons
   for i, data in ipairs(_addon.cfg.gui.increments.position) do 
     local ctrl = _addon.cfg.gui.map.item.incrPos .. i 
@@ -575,6 +578,8 @@ end
 _addon.AddCurrentItemToGroup = function() 
   local item, safeKey 
 
+  -- TODO: Check if item being selected is already Current Item 
+  --       SetItemFromReticle will erase Current Item Alias if it exists 
   _addon.SetCurrentItemFromReticle() 
   item = _addon.cfg.state.current.item 
   safeKey = zo_getSafeId64Key(item.id) 
@@ -671,7 +676,13 @@ _addon.SetCurrentItemFromReticle = function(_self)
   else 
     -- TODO: newFid might reference non-interactive furniture 
     local newFid = _addon.GetSelectedFid() 
-    _addon.SetCurrentItem(newFid) 
+
+    if _addon.cfg.state.current.item.id ~= nil then 
+      if newFid ~= _addon.cfg.state.current.item.id then 
+        _addon.SetCurrentItem(newFid) 
+      end 
+    end 
+
     _addon.UpdateCurrentItemDisplay() 
     _addon.UpdateCurrentItemInGroup(newFid) 
   end 
@@ -1080,7 +1091,7 @@ end
 
 
 
-_addon.RenameCurrentGroup = function() 
+_addon.SetGroupName = function() 
   local ctrl = _addon.cfg.gui.map.group 
   local group = _addon.cfg.state.current.group 
 
@@ -1177,9 +1188,14 @@ AnLorXen_Builder_AddItemToGroup = function(_self)
 end 
 
 
-AnLorXen_Builder_CurrentGroup_Rename_OnClicked = function(_self) 
-  d("AnLorXen_Builder_CurrentGroup_Rename_OnClicked") 
+AnLorXen_Builder_CurrentGroup_Rename_OnMouseUp = function(_self) 
+  -- d("AnLorXen_Builder_CurrentGroup_Rename_OnMouseUp") 
   _addon.ShowGroupRenameCtrl() 
+end 
+
+AnLorXen_Builder_CurrentGroup_EditGroupName_OnFocusLost = function(_self) 
+  -- d("AnLorXen_Builder_CurrentGroup_Rename_OnFocusLost") 
+  _addon.SetGroupName() 
 end 
 
 

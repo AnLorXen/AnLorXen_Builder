@@ -516,11 +516,11 @@
 
             <Label 
               name="$(parent)_Title" 
-              text="<No Current Item>"
-              font="ZoFontWinH3" 
               color="EFEBBE" 
-              wrapMode="ELLIPSIS" 
+              font="ZoFontWinH3" 
+              text="<No Current Item>"
               verticalAlignment="CENTER" 
+              wrapMode="ELLIPSIS" 
             >
               <Anchor 
                 point="TOPLEFT" 
@@ -1429,32 +1429,79 @@
             relativeTo="$(parent)" 
             relativePoint="TOPRIGHT" 
           />
-          <Dimensions y="40" />
+          <Dimensions y="50" />
           <Controls>
 
             <Label 
               name="$(parent)_Title" 
-              text=""
-              font="ZoFontWinH3" 
               color="EFEBBE" 
-              wrapMode="ELLIPSIS" 
+              font="ZoFontWinH3" 
               verticalAlignment="CENTER" 
+              wrapMode="ELLIPSIS" 
             >
               <Anchor 
                 point="TOPLEFT" 
                 relativeTo="$(parent)" 
                 relativePoint="TOPLEFT" 
                 offsetX="16" 
-                offsetY="2" 
+                offsetY="4" 
               />
               <Anchor 
                 point="TOPRIGHT" 
                 relativeTo="$(parent)" 
                 relativePoint="TOPRIGHT" 
-                offsetX="-16" 
-                offsetY="2" 
+                offsetX="-40" 
+                offsetY="4" 
               />
             </Label>
+
+            <Backdrop 
+              name="$(parent)_BdGroupName" 
+              inherits="ZO_SingleLineEditBackdrop_Keyboard" 
+              hidden="true" 
+              edgeColor="FF0000" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="TOPLEFT" 
+                offsetX="0" 
+                offsetY="-4" 
+              />
+              <Anchor 
+                point="BOTTOMRIGHT" 
+                relativeTo="$(parent)_Title" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="4" 
+              />
+              <Edge edgeSize="1" />
+            </Backdrop>
+
+            <EditBox 
+              name="$(parent)_EditGroupName" 
+              inherits="ZO_DefaultEditForBackdrop" 
+              font="ZoFontWinH3" 
+              hidden="true" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BdGroupName" 
+                relativePoint="TOPLEFT" 
+                offsetX="14" 
+                offsetY="4" 
+              />
+              <Anchor 
+                point="BOTTOMRIGHT" 
+                relativeTo="$(parent)_BdGroupName" 
+                relativePoint="BOTTOMRIGHT" 
+                offsetX="0" 
+                offsetY="8" 
+              />
+              <OnFocusLost>
+                AnLorXen_Builder_CurrentGroup_EditGroupName_OnFocusLost(self)
+              </OnFocusLost>        
+            </EditBox>
 
             <Button name="$(parent)_BtnRename" alpha="0.8">
               <Anchor 
@@ -1471,7 +1518,7 @@
                 mouseOver="esoui/art/buttons/edit_over.dds"           
               />              
               <OnClicked>
-                AnLorXen_Builder_CurrentGroup_Rename_OnClicked(self)
+                AnLorXen_Builder_CurrentGroup_Rename_OnMouseUp(self)
               </OnClicked>
               <OnMouseEnter>
                 ZO_Tooltips_ShowTextTooltip(self, TOP, "Rename Group")
@@ -1480,54 +1527,6 @@
                 ZO_Tooltips_HideTextTooltip()
               </OnMouseExit>
             </Button>
-
-            <Backdrop 
-              name="$(parent)_BdGroupName" 
-              inherits="ZO_SingleLineEditBackdrop_Keyboard" 
-              hidden="true" 
-              edgeColor="FF0000" 
-            >
-              <Anchor 
-                point="TOPLEFT" 
-                relativeTo="$(parent)_Title" 
-                relativePoint="BOTTOMLEFT" 
-                offsetX="0" 
-                offsetY="6" 
-              />
-              <Anchor 
-                point="BOTTOMRIGHT" 
-                relativeTo="$(parent)_Title" 
-                relativePoint="BOTTOMRIGHT" 
-                offsetX="0" 
-                offsetY="44" 
-              />
-              <Edge edgeSize="1" />
-            </Backdrop>
-
-            <EditBox 
-              name="$(parent)_EditGroupName" 
-              inherits="ZO_DefaultEditForBackdrop" 
-              font="ZoFontWinH3" 
-              hidden="true" 
-            >
-              <Anchor 
-                point="TOPLEFT" 
-                relativeTo="$(parent)_BdGroupName" 
-                relativePoint="TOPLEFT" 
-                offsetX="14" 
-                offsetY="3" 
-              />
-              <Anchor 
-                point="BOTTOMRIGHT" 
-                relativeTo="$(parent)_BdGroupName" 
-                relativePoint="BOTTOMRIGHT" 
-                offsetX="0" 
-                offsetY="0" 
-              />
-              <OnFocusLost>
-                AnLorXen_Builder_EditAlias_OnFocusLost(self)
-              </OnFocusLost>        
-            </EditBox>
 
             <Texture 
               name="$(parent)_TopDivider" 
