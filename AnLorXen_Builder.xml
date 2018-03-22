@@ -1537,14 +1537,14 @@
                 relativeTo="$(parent)_Title" 
                 relativePoint="BOTTOMLEFT" 
                 offsetX="0" 
-                offsetY="8" 
+                offsetY="4" 
               />
               <Anchor 
                 point="TOPRIGHT" 
                 relativeTo="$(parent)_Title" 
                 relativePoint="BOTTOMRIGHT" 
                 offsetX="0" 
-                offsetY="8" 
+                offsetY="4" 
               />
               <Dimensions y="4"/>
             </Texture>
@@ -1558,7 +1558,7 @@
             relativeTo="$(parent)_Header" 
             relativePoint="BOTTOMLEFT" 
             offsetX="0" 
-            offsetY="16" 
+            offsetY="4" 
           />
           <Dimensions y="32" />
           <Controls>
@@ -1738,7 +1738,7 @@
             offsetX="0" 
             offsetY="0" 
           />
-          <Dimensions y="36"/>          
+          <Dimensions y="40"/>          
           <Controls>
 
             <Button 
@@ -1753,7 +1753,7 @@
                 offsetX="8" 
                 offsetY="0" 
               />
-              <Dimensions x="72" y="32" /> 
+              <Dimensions x="80" y="32" /> 
               <OnClicked>
                 AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked(self)
               </OnClicked>
@@ -1784,10 +1784,10 @@
               />
               <Dimensions x="72" y="32" /> 
               <OnClicked>
-                AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked(self)
+                AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked(self) 
               </OnClicked>
               <OnMouseEnter>
-                ZO_Tooltips_ShowTextTooltip(self, TOP, "Save Group") 
+                ZO_Tooltips_ShowTextTooltip(self, TOP, "Save This Group") 
               </OnMouseEnter>
               <OnMouseExit>
                 ZO_Tooltips_HideTextTooltip()

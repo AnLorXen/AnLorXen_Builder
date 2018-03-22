@@ -1129,7 +1129,7 @@ AnLorXen_Builder_CurrentItem_Rename_OnClicked = function(_self)
 end 
 
 AnLorXen_Builder_CurrentItem_EditAlias_OnFocusLost = function(_self) 
-  -- d("(972) event: AnLorXen_Builder_EditAlias_OnFocusLost") 
+  -- d("AnLorXen_Builder_EditAlias_OnFocusLost") 
   _addon.SetItemAlias()   
 end 
 
@@ -1139,7 +1139,8 @@ AnLorXen_Builder_CurrentItem_ShowDelta_OnClicked = function(_self)
 end 
 
 AnLorXen_Builder_CurrentItem_Test_OnClicked = function(_self) 
-  d(_self:GetName()) 
+  d("AnLorXen_Builder_CurrentItem_Test_OnClicked") 
+  -- d(_self:GetName()) 
 end 
 
 
@@ -1209,8 +1210,12 @@ end
 
 
 AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked = function(_self) 
-  d("AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked") 
+  -- d("AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked") 
+  d("This command will remove item: " .. _addon.cfg.state.current.item.name) 
+end 
 
+AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked = function(_self) 
+  d("AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked") 
 end 
 
 AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked = function(_self) 
