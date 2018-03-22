@@ -677,12 +677,16 @@ _addon.SetCurrentItemFromReticle = function(_self)
     -- TODO: newFid might reference non-interactive furniture 
     local newFid = _addon.GetSelectedFid() 
 
-    if _addon.cfg.state.current.item.id ~= nil then 
-      if newFid ~= _addon.cfg.state.current.item.id then 
-        _addon.SetCurrentItem(newFid) 
-      end 
-    end 
+    -- TODO: Check if item being selected is already Current Item 
+    --       SetItemFromReticle will erase Current Item Alias if it exists 
 
+    -- if _addon.cfg.state.current.item.id ~= nil then 
+    --   if newFid ~= _addon.cfg.state.current.item.id then 
+    --     _addon.SetCurrentItem(newFid) 
+    --   end 
+    -- end 
+
+    _addon.SetCurrentItem(newFid) 
     _addon.UpdateCurrentItemDisplay() 
     _addon.UpdateCurrentItemInGroup(newFid) 
   end 
@@ -717,19 +721,24 @@ end
 _addon.SetCurrentItem = function(_fid) 
   local item = _addon.cfg.state.current.item 
   local safeKey = zo_getSafeId64Key(_fid) 
-  item.id = _fid 
-  item.name, item.icon, item.fdataId 
-    = GetPlacedHousingFurnitureInfo(item.id) 
-    
-  item.alias.isSet = false 
-  item.alias.name = "" 
 
+  -- if new item is already current item use its alias 
+  if item.id ~= _fid then 
+    item.alias.isSet = false 
+    item.alias.name = ""     
+  end 
+
+  -- if new item exists in current group use its alias 
   if _addon.fids[safeKey] then 
     if _addon.fids[safeKey].alias.isSet then 
       item.alias.isSet = true 
       item.alias.name = _addon.fids[safeKey].alias.name 
     end 
   end 
+
+  item.id = _fid 
+  item.name, item.icon, item.fdataId 
+    = GetPlacedHousingFurnitureInfo(item.id)     
 
   item.initial.position.x, 
   item.initial.position.y, 
