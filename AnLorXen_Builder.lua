@@ -1208,6 +1208,11 @@ AnLorXen_Builder_CurrentGroup_EditGroupName_OnFocusLost = function(_self)
 end 
 
 
+AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked = function(_self) 
+  d("AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked") 
+
+end 
+
 AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked = function(_self) 
   -- d("AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked") 
   _addon.ClearCurrentGroup() 

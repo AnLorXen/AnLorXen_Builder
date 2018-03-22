@@ -1742,13 +1742,10 @@
           <Controls>
 
             <Button 
-              name="$(parent)_BtnClearGroup" 
+              name="$(parent)_BtnRemoveItem" 
               inherits="ZO_DefaultTextButton" 
-              text="Clear" 
+              text="Remove" 
             >
-              <OnClicked>
-                AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked(self)
-              </OnClicked>
               <Anchor 
                 point="TOPLEFT" 
                 relativeTo="$(parent)" 
@@ -1757,6 +1754,73 @@
                 offsetY="0" 
               />
               <Dimensions x="72" y="32" /> 
+              <OnClicked>
+                AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked(self)
+              </OnClicked>
+              <OnMouseEnter>
+                ZO_Tooltips_ShowTextTooltip(self, TOP, "Remove Selected Item") 
+              </OnMouseEnter>
+              <OnMouseExit>
+                ZO_Tooltips_HideTextTooltip()
+              </OnMouseExit>              
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <Button 
+              name="$(parent)_BtnSaveGroup" 
+              inherits="ZO_DefaultTextButton" 
+              text="Save" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BtnRemoveItem" 
+                relativePoint="TOPRIGHT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="72" y="32" /> 
+              <OnClicked>
+                AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked(self)
+              </OnClicked>
+              <OnMouseEnter>
+                ZO_Tooltips_ShowTextTooltip(self, TOP, "Save Group") 
+              </OnMouseEnter>
+              <OnMouseExit>
+                ZO_Tooltips_HideTextTooltip()
+              </OnMouseExit>              
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <Button 
+              name="$(parent)_BtnClearGroup" 
+              inherits="ZO_DefaultTextButton" 
+              text="Clear" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)_BtnSaveGroup" 
+                relativePoint="TOPRIGHT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="72" y="32" /> 
+              <OnClicked>
+                AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked(self)
+              </OnClicked>
+              <OnMouseEnter>
+                ZO_Tooltips_ShowTextTooltip(self, TOP, "Clear All Items") 
+              </OnMouseEnter>
+              <OnMouseExit>
+                ZO_Tooltips_HideTextTooltip()
+              </OnMouseExit>              
               <Textures 
                 normal="esoui/art/buttons/swatchframe_down.dds" 
                 pressed="esoui/art/buttons/swatchframe_down.dds" 
