@@ -575,6 +575,15 @@ end
 
 
 
+_addon.RemoveItemFromGroup = function() 
+  local safeKey = zo_getSafeId64Key(_addon.cfg.state.current.item.id) 
+  _addon.items[safeKey] = nil 
+  _addon.fids[safeKey] = nil   
+  _addon.ItemList:Refresh() 
+end 
+
+
+
 _addon.AddCurrentItemToGroup = function() 
   local item, safeKey 
 
@@ -814,16 +823,18 @@ end
 
 
 _addon.ToggleItemDeltaCtrl = function() 
+  -- TODO: check if current item exists 
   local delta = _addon.cfg.state.current.delta 
   local ctrl = _addon.cfg.gui.map.delta 
+  local item = _addon.cfg.state.current.item 
   if delta.isSet then 
     GetControl(ctrl.topLevel):SetHidden(true) 
     delta.isSet = false 
   else 
-    if _addon.cfg.state.current.item.alias.isSet then 
-      GetControl(ctrl.name):SetText(_addon.cfg.state.current.item.alias.name) 
+    if item.alias.isSet then 
+      GetControl(ctrl.name):SetText(item.alias.name) 
     else 
-      GetControl(ctrl.name):SetText(_addon.cfg.state.current.item.name) 
+      GetControl(ctrl.name):SetText(item.name) 
     end       
     _addon.ItemSetCoords() 
     GetControl(ctrl.topLevel):SetHidden(false) 
@@ -1046,7 +1057,10 @@ _addon.ItemDeltaCtrlLostFocus = function()
   rotOffset.y = math.rad(GetControl(ctrl.offsetRotY):GetText()) 
   rotOffset.z = math.rad(GetControl(ctrl.offsetRotZ):GetText()) 
 
+  -- TODO: Confirm delta has changed ? 
+  _addon.cfg.state.current.delta.isSet = true 
 end 
+
 
 
 _addon.ItemIncrementBtnClick = function() 
@@ -1211,7 +1225,7 @@ end
 
 AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked = function(_self) 
   -- d("AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked") 
-  d("This command will remove item: " .. _addon.cfg.state.current.item.name) 
+  _addon.RemoveItemFromGroup() 
 end 
 
 AnLorXen_Builder_CurrentGroup_SaveGroup_OnClicked = function(_self) 
@@ -1223,14 +1237,6 @@ AnLorXen_Builder_CurrentGroup_ClearGroup_OnClicked = function(_self)
   _addon.ClearCurrentGroup() 
 end 
 
-
-AnLorXen_Builder_RemoveItemFromGroup = function(_self) 
-  d("event: AnLorXen_Builder_RemoveItem") 
-end 
-
-AnLorXen_Builder_ConfirmClearGroup = function(_self) 
-  d("event: AnLorXen_Builder_ConfirmClearGroup") 
-end 
 
 AnLorXen_Builder_AddGroup = function(_self) 
   d("event: AnLorXen_Builder_AddGroup") 
