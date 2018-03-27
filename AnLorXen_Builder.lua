@@ -587,8 +587,6 @@ end
 _addon.AddCurrentItemToGroup = function() 
   local item, safeKey 
 
-  -- TODO: Check if item being selected is already Current Item 
-  --       SetItemFromReticle will erase Current Item Alias if it exists 
   _addon.SetCurrentItemFromReticle() 
   item = _addon.cfg.state.current.item 
   safeKey = zo_getSafeId64Key(item.id) 
@@ -685,16 +683,6 @@ _addon.SetCurrentItemFromReticle = function(_self)
   else 
     -- TODO: newFid might reference non-interactive furniture 
     local newFid = _addon.GetSelectedFid() 
-
-    -- TODO: Check if item being selected is already Current Item 
-    --       SetItemFromReticle will erase Current Item Alias if it exists 
-
-    -- if _addon.cfg.state.current.item.id ~= nil then 
-    --   if newFid ~= _addon.cfg.state.current.item.id then 
-    --     _addon.SetCurrentItem(newFid) 
-    --   end 
-    -- end 
-
     _addon.SetCurrentItem(newFid) 
     _addon.UpdateCurrentItemDisplay() 
     _addon.UpdateCurrentItemInGroup(newFid) 
@@ -772,22 +760,22 @@ end
 
 _addon.ShowItemAliasCtrl = function() 
   -- TODO: check for current item 
-  if _addon.cfg.state.current.item.id == nil then 
+  local item = _addon.cfg.state.current.item 
+  local ctrl = _addon.cfg.gui.map.item 
+  if item.id == nil then 
     return 
   end 
 
-  GetControl(_addon.cfg.gui.map.item.alias):SetHidden(true) 
-  GetControl(_addon.cfg.gui.map.item.bdAlias):SetHidden(false) 
-  GetControl(_addon.cfg.gui.map.item.editAlias):SetHidden(false) 
+  GetControl(ctrl.alias):SetHidden(true) 
+  GetControl(ctrl.bdAlias):SetHidden(false) 
+  GetControl(ctrl.editAlias):SetHidden(false) 
 
-  if _addon.cfg.state.current.item.alias.isSet then 
-    GetControl(_addon.cfg.gui.map.item.editAlias)
-      :SetText(_addon.cfg.state.current.item.alias.name) 
+  if item.alias.isSet then 
+    GetControl(ctrl.editAlias):SetText(item.alias.name) 
   else 
-    GetControl(_addon.cfg.gui.map.item.editAlias)
-      :SetText(_addon.cfg.state.current.item.name) 
+    GetControlctrlm.editAlias):SetText(item.name) 
   end 
-  GetControl(_addon.cfg.gui.map.item.editAlias):TakeFocus() 
+  GetControl(ctrl.editAlias):TakeFocus() 
 end 
 
 
