@@ -284,12 +284,12 @@
         <Label 
           name="$(parent)Name" 
           font="ZoFontWinH4" 
-        wrapMode="ELLIPSIS" 
+          wrapMode="ELLIPSIS" 
         >
           <Anchor 
-          point="TOPLEFT" 
-          relativeTo="$(parent)Status" 
-          relativePoint="TOPRIGHT" 
+            point="TOPLEFT" 
+            relativeTo="$(parent)Status" 
+            relativePoint="TOPRIGHT" 
           />
           <Dimensions x="220" y="32" />
         </Label>

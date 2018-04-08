@@ -5,8 +5,11 @@ _addon.cfg = {
 
   gui = { 
     colors = {
-      rowDefault = ZO_ColorDef:New(0.4627, 0.737, 0.7647, 1) 
-    }, 
+      rowDefault = ZO_ColorDef:New(0.9373, 0.9216, 0.7451, 1), 
+      coordX     = ZO_ColorDef:New(0.8000, 0.2000, 0.2000, 1), 
+      coordY     = ZO_ColorDef:New(0.2000, 0.8000, 0.2000, 1), 
+      coordZ     = ZO_ColorDef:New(0.4000, 0.4000, 0.8000, 1) 
+   }, 
 
     ctrls = {
       current = {
@@ -279,34 +282,34 @@ end
 ALX_ItemList.SetupItemRow = function(_self, _ctrl, _data)
   _ctrl.data = _data 
   
-	_ctrl.status = GetControl(_ctrl, "Status")
-	_ctrl.name = GetControl(_ctrl, "Name")
-	_ctrl.posX = GetControl(_ctrl, "PosX")
-	_ctrl.posY = GetControl(_ctrl, "PosY")
-	_ctrl.posZ = GetControl(_ctrl, "PosZ")
-	_ctrl.rotX = GetControl(_ctrl, "RotX")
-	_ctrl.rotY = GetControl(_ctrl, "RotY")
-	_ctrl.rotZ = GetControl(_ctrl, "RotZ")
+	_ctrl.status = GetControl(_ctrl, "Status") 
+	_ctrl.name = GetControl(_ctrl, "Name") 
+	_ctrl.posX = GetControl(_ctrl, "PosX") 
+	_ctrl.posY = GetControl(_ctrl, "PosY") 
+	_ctrl.posZ = GetControl(_ctrl, "PosZ") 
+	_ctrl.rotX = GetControl(_ctrl, "RotX") 
+	_ctrl.rotY = GetControl(_ctrl, "RotY") 
+	_ctrl.rotZ = GetControl(_ctrl, "RotZ") 
 
-	_ctrl.status:SetText(_data.status)
-	_ctrl.name:SetText(_data.name)
-	_ctrl.posX:SetText(_data.posX)
-	_ctrl.posY:SetText(_data.posY)
-	_ctrl.posZ:SetText(_data.posZ)
-	_ctrl.rotX:SetText(_data.rotX)
-	_ctrl.rotY:SetText(_data.rotY)
-	_ctrl.rotZ:SetText(_data.rotZ)
+	_ctrl.status:SetText(_data.status) 
+	_ctrl.name:SetText(_data.name) 
+	_ctrl.posX:SetText(_data.posX) 
+	_ctrl.posY:SetText(_data.posY) 
+	_ctrl.posZ:SetText(_data.posZ) 
+	_ctrl.rotX:SetText(_data.rotX) 
+	_ctrl.rotY:SetText(_data.rotY) 
+	_ctrl.rotZ:SetText(_data.rotZ) 
 
-	_ctrl.status.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.name.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.posX.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.posY.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.posZ.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.rotX.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.rotY.normalColor = _addon.cfg.gui.colors.rowDefault  
-	_ctrl.rotZ.normalColor = _addon.cfg.gui.colors.rowDefault 
-
-	ZO_SortFilterList.SetupRow(_self, _ctrl, _data)
+	_ctrl.status.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.name.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.posX.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.posY.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.posZ.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.rotX.normalColor = _addon.cfg.gui.colors.rowDefault 
+	_ctrl.rotY.normalColor = _addon.cfg.gui.colors.rowDefault 
+  _ctrl.rotZ.normalColor = _addon.cfg.gui.colors.rowDefault 
+  
+	ZO_SortFilterList.SetupRow(_self, _ctrl, _data) 
 end 
 
 
@@ -468,19 +471,19 @@ _addon.BuildCurrentItem = function()
 
   -- position edit controls
   GetControl(ctrlEditPos .. "_PosX_Label"):SetText("X:") 
-  GetControl(ctrlEditPos .. "_PosX_Label"):SetColor(1, 0, 0, 1) 
+  GetControl(ctrlEditPos .. "_PosX_Label"):SetColor(0.8000, 0.2000, 0.2000, 1) 
   GetControl(ctrlEditPos .. "_PosY_Label"):SetText("Y:") 
-  GetControl(ctrlEditPos .. "_PosY_Label"):SetColor(0, 1, 0, 1) 
+  GetControl(ctrlEditPos .. "_PosY_Label"):SetColor(0.2000, 0.8000, 0.2000, 1) 
   GetControl(ctrlEditPos .. "_PosZ_Label"):SetText("Z:") 
-  GetControl(ctrlEditPos .. "_PosZ_Label"):SetColor(0.2, 0.2, 1, 1) 
+  GetControl(ctrlEditPos .. "_PosZ_Label"):SetColor(0.4000, 0.4000, 0.8000, 1) 
 
   -- rotation edit controls
   GetControl(ctrlEditRot .. "_RotX_Label"):SetText("X:") 
-  GetControl(ctrlEditRot .. "_RotX_Label"):SetColor(1, 0, 0, 1) 
+  GetControl(ctrlEditRot .. "_RotX_Label"):SetColor(0.8000, 0.2000, 0.2000, 1) 
   GetControl(ctrlEditRot .. "_RotY_Label"):SetText("Y:") 
-  GetControl(ctrlEditRot .. "_RotY_Label"):SetColor(0, 1, 0, 1) 
+  GetControl(ctrlEditRot .. "_RotY_Label"):SetColor(0.2000, 0.8000, 0.2000, 1) 
   GetControl(ctrlEditRot .. "_RotZ_Label"):SetText("Z:") 
-  GetControl(ctrlEditRot .. "_RotZ_Label"):SetColor(0.2, 0.2, 1, 1) 
+  GetControl(ctrlEditRot .. "_RotZ_Label"):SetColor(0.4000, 0.4000, 0.8000, 1) 
   
 end 
 
@@ -559,6 +562,14 @@ end
 
 
 _addon.BuildCurrentGroup = function() 
+  local ctrl = "AnLorXen_Builder_CurrentGroupHeaders_" 
+  GetControl(ctrl .. "PosXName"):SetColor(0.8000, 0.2000, 0.2000, 1)   
+  GetControl(ctrl .. "PosYName"):SetColor(0.2000, 0.8000, 0.2000, 1) 
+  GetControl(ctrl .. "PosZName"):SetColor(0.4000, 0.4000, 0.8000, 1) 
+  GetControl(ctrl .. "RotXName"):SetColor(0.8000, 0.2000, 0.2000, 1) 
+  GetControl(ctrl .. "RotYName"):SetColor(0.2000, 0.8000, 0.2000, 1) 
+  GetControl(ctrl .. "RotZName"):SetColor(0.4000, 0.4000, 0.8000, 1) 
+
   GetControl(_addon.cfg.gui.map.group.name)
     :SetText(_addon.cfg.state.current.group.name) 
   _addon.ItemList = ALX_ItemList:New()	
@@ -773,7 +784,7 @@ _addon.ShowItemAliasCtrl = function()
   if item.alias.isSet then 
     GetControl(ctrl.editAlias):SetText(item.alias.name) 
   else 
-    GetControlctrlm.editAlias):SetText(item.name) 
+    GetControl(ctrl.editAlias):SetText(item.name) 
   end 
   GetControl(ctrl.editAlias):TakeFocus() 
 end 
