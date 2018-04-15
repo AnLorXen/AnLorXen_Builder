@@ -464,7 +464,7 @@
     <TopLevelControl 
       name="AnLorXen_Builder_CurrentItem" 
       clampedToScreen="true" 
-      hidden="false" 
+      hidden="true" 
       mouseEnabled="true" 
       movable="true"
     >
@@ -1406,7 +1406,7 @@
     <TopLevelControl 
       name="AnLorXen_Builder_CurrentGroup" 
       clampedToScreen="true" 
-      hidden="false" 
+      hidden="true" 
       mouseEnabled="true" 
       movable="true" 
     >

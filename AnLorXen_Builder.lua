@@ -111,6 +111,7 @@ _addon.cfg = {
 
       delta = { 
         isSet = false, 
+        isVisible = false, 
         position = {
           coord = { x = 0, y = 0, z = 0 }, 
           offset = { x = 0, y = 0, z = 0 }
@@ -130,7 +131,8 @@ _addon.cfg = {
         } 
       }, 
 
-      group = {
+      group = { 
+        isVisible = false, 
         name = "<No Current Group>", 
       }, 
 
@@ -151,7 +153,8 @@ _addon.cfg = {
         updated = {
           position = { x = 0, y = 0, z = 0 }, 
           rotation = { x = 0, y = 0, z = 0 }
-        }
+        }, 
+        isVisible = false 
       }
     }, 
     hidden = false, 
@@ -438,6 +441,31 @@ end
 
 
 
+_addon.ShowCurrentItemDisplay = function() 
+  GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(false) 
+  _addon.cfg.state.item.isVisible = true 
+end
+
+_addon.HideCurrentItemDisplay = function() 
+  GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(true) 
+  _addon.cfg.state.item.isVisible = false 
+end
+
+
+
+_addon.ShowCurrentGroupDisplay = function() 
+  GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(false) 
+  _addon.cfg.state.group.isVisible = true 
+end
+
+_addon.HideCurrentGroupDisplay = function() 
+  GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(true) 
+  _addon.cfg.state.group.isVisible = false 
+end
+
+
+
+
 _addon.BuildCurrentItem = function() 
   local ctrlEditPos = "AnLorXen_Builder_CurrentItem_Position_EditCtrls" 
   local ctrlEditRot = "AnLorXen_Builder_CurrentItem_Rotation_EditCtrls" 
@@ -690,12 +718,18 @@ _addon.SetCurrentItemFromReticle = function(_self)
   if (not HousingEditorCanSelectTargettedFurniture()) then 
     d("SetCurrentItemFromReticle: Can Not Select Item (empty reticle)") 
     d("SetCurrentItemFromReticle: Clear Item Display?") 
+
+    _addon.HideCurrentItemDisplay() 
+
     return 
   else 
     -- TODO: newFid might reference non-interactive furniture 
     local newFid = _addon.GetSelectedFid() 
     _addon.SetCurrentItem(newFid) 
     _addon.UpdateCurrentItemDisplay() 
+
+    _addon.ShowCurrentItemDisplay() 
+
     _addon.UpdateCurrentItemInGroup(newFid) 
   end 
 end 
@@ -1202,7 +1236,7 @@ end
 
 AnLorXen_Builder_SelectItem = function(_self) 
   -- d("event: AnLorXen_Builder_SelectItem") 
-  _addon.SetCurrentItemFromReticle(_self)   
+  _addon.SetCurrentItemFromReticle(_self) 
 end 
 
 AnLorXen_Builder_AddItemToGroup = function(_self) 
@@ -1298,8 +1332,26 @@ SLASH_COMMANDS["/ll"] = function()
 end 
 
 EVENT_MANAGER:RegisterForEvent(
-  "_addon.Init", EVENT_ADD_ON_LOADED , _addon.Init 
-)
+  "_addon.Init", 
+  EVENT_ADD_ON_LOADED, 
+  _addon.Init 
+) 
+
+EVENT_MANAGER:RegisterForEvent(
+  "_addon.HandleModeChange", 
+  EVENT_HOUSING_EDITOR_MODE_CHANGED, 
+  _addon.HandleModeChange 
+)  
+
+EVENT_MANAGER:RegisterForEvent(
+  "_addon.HandleFurnitureRemoved", 
+  EVENT_HOUSING_FURNITURE_REMOVED, 
+  _addon.HandleFurnitureRemoved 
+)  
+
+
+
+
 -- EVENT_MANAGER:RegisterForEvent(
 --   "_addon.RETICLE_TARGET_CHANGED", 
 --   EVENT_RETICLE_TARGET_CHANGED, 
