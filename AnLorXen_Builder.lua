@@ -108,6 +108,7 @@ _addon.cfg = {
     current = {
       zone = nil, 
       house = nil, 
+      mode = 0, 
 
       delta = { 
         isSet = false, 
@@ -132,6 +133,7 @@ _addon.cfg = {
       }, 
 
       group = { 
+        isSet = false, 
         isVisible = false, 
         name = "<No Current Group>", 
       }, 
@@ -142,6 +144,8 @@ _addon.cfg = {
         fdataId = nil, 
         icon = "", 
         name = "<No Current Item>", 
+        isSet = false, 
+        isVisible = false, 
         alias = {
           isSet = false, 
           name = "" 
@@ -153,8 +157,7 @@ _addon.cfg = {
         updated = {
           position = { x = 0, y = 0, z = 0 }, 
           rotation = { x = 0, y = 0, z = 0 }
-        }, 
-        isVisible = false 
+        } 
       }
     }, 
     hidden = false, 
@@ -382,6 +385,49 @@ end
 
 
 
+_addon.GetHousingMode = function(_int) 
+  local results = {
+    [0] = "HOUSING_EDITOR_MODE_DISABLED", 
+    [1] = "HOUSING_EDITOR_MODE_PLACEMENT", 
+    [2] = "HOUSING_EDITOR_MODE_SELECTION", 
+    [3] = "HOUSING_EDITOR_MODE_BROWSE"
+  } 
+  if results[_int] then 
+    return results[_int] 
+  else 
+    return _int 
+  end 
+end 
+
+
+
+_addon.HandleModeChange = function(_event, _oldMode, _newMode) 
+  _addon.cfg.state.current.mode = _newMode 
+  local newMode = _addon.cfg.state.current.mode 
+
+  -- HOUSING_EDITOR_MODE_DISABLED or HOUSING_EDITOR_MODE_BROWSE 
+  if newMode == 0 or newMode == 3 then 
+    _addon.HideCurrentItemDisplay() 
+    _addon.HideItemDeltaDisplay() 
+    _addon.HideCurrentGroupDisplay() 
+  end 
+
+end 
+
+
+
+_addon.HandleFurnitureRemoved = function(_furnitureId, collectibleId) 
+  d("HandleFurnitureRemoved: ") 
+end 
+
+
+
+_addon.HandleFurniturePlaced = function(_furnitureId, collectibleId) 
+  d("HandleFurniturePlaced: ") 
+end 
+
+
+
 _addon.WriteToDiagnostic = function(_key, _val, _idx) 
   GetControl("AnLorXen_Builder_Diagnostic_Key_" .. _idx)
     :SetText(_key) 
@@ -443,24 +489,36 @@ end
 
 _addon.ShowCurrentItemDisplay = function() 
   GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(false) 
-  _addon.cfg.state.item.isVisible = true 
+  _addon.cfg.state.current.item.isVisible = true 
 end
 
 _addon.HideCurrentItemDisplay = function() 
   GetControl(_addon.cfg.gui.map.item.topLevel):SetHidden(true) 
-  _addon.cfg.state.item.isVisible = false 
+  _addon.cfg.state.current.item.isVisible = false 
+end
+
+
+
+_addon.ShowItemDeltaDisplay = function() 
+  GetControl(_addon.cfg.gui.map.delta.topLevel):SetHidden(false) 
+  _addon.cfg.state.current.delta.isVisible = true 
+end
+
+_addon.HideItemDeltaDisplay = function() 
+  GetControl(_addon.cfg.gui.map.delta.topLevel):SetHidden(true) 
+  _addon.cfg.state.current.delta.isVisible = false 
 end
 
 
 
 _addon.ShowCurrentGroupDisplay = function() 
   GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(false) 
-  _addon.cfg.state.group.isVisible = true 
+  _addon.cfg.state.current.group.isVisible = true 
 end
 
 _addon.HideCurrentGroupDisplay = function() 
   GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(true) 
-  _addon.cfg.state.group.isVisible = false 
+  _addon.cfg.state.current.group.isVisible = false 
 end
 
 
@@ -627,6 +685,9 @@ _addon.AddCurrentItemToGroup = function()
   local item, safeKey 
 
   _addon.SetCurrentItemFromReticle() 
+
+  _addon.ShowCurrentGroupDisplay() 
+
   item = _addon.cfg.state.current.item 
   safeKey = zo_getSafeId64Key(item.id) 
 
@@ -708,19 +769,17 @@ end
 
 
 
-_addon.SetCurrentItemFromReticle = function(_self)   
-	if (GetHousingEditorMode() ~= HOUSING_EDITOR_MODE_SELECTION) then 
-    d("SetCurrentItemFromReticle: Not in Selection Mode") 
-    d("SetCurrentItemFromReticle: Quiet exit.") 
-		return
+_addon.SetCurrentItemFromReticle = function(_self)         
+  -- return if not in selection mode
+  if(_addon.cfg.state.current.mode ~= HOUSING_EDITOR_MODE_SELECTION) then 
+    return 
   end 
   
+  -- hide GUI and return if reticle has no target ?
   if (not HousingEditorCanSelectTargettedFurniture()) then 
-    d("SetCurrentItemFromReticle: Can Not Select Item (empty reticle)") 
-    d("SetCurrentItemFromReticle: Clear Item Display?") 
-
-    _addon.HideCurrentItemDisplay() 
-
+    -- TODO: Determine desired functionality here - 
+    -- TODO: hiding the GUI is not desired
+    -- _addon.HideCurrentItemDisplay() 
     return 
   else 
     -- TODO: newFid might reference non-interactive furniture 
@@ -1347,6 +1406,12 @@ EVENT_MANAGER:RegisterForEvent(
   "_addon.HandleFurnitureRemoved", 
   EVENT_HOUSING_FURNITURE_REMOVED, 
   _addon.HandleFurnitureRemoved 
+)  
+
+EVENT_MANAGER:RegisterForEvent(
+  "_addon.HandleFurniturePlaced", 
+  EVENT_HOUSING_FURNITURE_PLACED, 
+  _addon.HandleFurniturePlaced 
 )  
 
 
