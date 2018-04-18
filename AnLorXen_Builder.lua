@@ -215,6 +215,7 @@ _addon.fids = {}
 -------------------------------------------------------------------------------
 
 
+
 ALX_ItemList = ZO_SortFilterList:Subclass()
 ALX_ItemList.defaults = {}
 ALX_ItemList.SORT_KEYS = { 
@@ -686,8 +687,6 @@ _addon.AddCurrentItemToGroup = function()
 
   _addon.SetCurrentItemFromReticle() 
 
-  _addon.ShowCurrentGroupDisplay() 
-
   item = _addon.cfg.state.current.item 
   safeKey = zo_getSafeId64Key(item.id) 
 
@@ -719,8 +718,11 @@ _addon.AddCurrentItemToGroup = function()
     rotY    = _addon.RadiansToDegreeInteger(item.initial.rotation.y), 
     rotZ    = _addon.RadiansToDegreeInteger(item.initial.rotation.z)
   } 
-
   _addon.ItemList:Refresh() 
+
+  _addon.cfg.state.current.group.isSet = true 
+  _addon.ShowCurrentGroupDisplay() 
+  
 end 
 
 
@@ -839,7 +841,8 @@ _addon.SetCurrentItem = function(_fid)
 
   item.id = _fid 
   item.name, item.icon, item.fdataId 
-    = GetPlacedHousingFurnitureInfo(item.id)     
+    = GetPlacedHousingFurnitureInfo(item.id) 
+  item.isSet = true 
 
   item.initial.position.x, 
   item.initial.position.y, 
