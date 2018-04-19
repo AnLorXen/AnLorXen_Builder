@@ -142,6 +142,7 @@ _addon.cfg = {
         id = nil, 
         fid = nil, 
         fdataId = nil, 
+        lastSafeKey = nil, 
         icon = "", 
         name = "<No Current Item>", 
         isSet = false, 
@@ -160,8 +161,7 @@ _addon.cfg = {
         } 
       }
     }, 
-    hidden = false, 
-    lastSafeFid = nil 
+    hidden = false 
   }, 
 
   testGroup = {
@@ -406,6 +406,19 @@ _addon.HandleModeChange = function(_event, _oldMode, _newMode)
   _addon.cfg.state.current.mode = _newMode 
   local newMode = _addon.cfg.state.current.mode 
 
+
+  -- HOUSING_EDITOR_MODE_SELECTION to HOUSING_EDITOR_MODE_PLACEMENT 
+  if _oldMode == 2 and newMode == 1 then 
+    local furnId = HousingEditorGetSelectedFurnitureId() 
+    _addon.HandleItemPickup(furnId) 
+  end 
+
+  -- HOUSING_EDITOR_MODE_PLACEMENT to HOUSING_EDITOR_MODE_SELECTION 
+  if _oldMode == 1 and newMode == 2 then 
+    _addon.HandleItemPlacement() 
+  end 
+
+
   -- HOUSING_EDITOR_MODE_DISABLED or HOUSING_EDITOR_MODE_BROWSE 
   if newMode == 0 or newMode == 3 then 
     _addon.HideCurrentItemDisplay() 
@@ -414,6 +427,32 @@ _addon.HandleModeChange = function(_event, _oldMode, _newMode)
   end 
 
 end 
+
+
+
+_addon.HandleItemPickup = function(_furnitureId) 
+  local safeKey = zo_getSafeId64Key(_furnitureId) 
+
+  local furnName, furnIcon, furnDataId 
+    = GetPlacedHousingFurnitureInfo(_furnitureId) 
+
+  local item = _addon.cfg.state.current.item 
+
+  if safeKey == item.lastSafeKey then 
+    d("HandleItemPickup: " .. furnName .. " picked up") 
+  else 
+    d("HandleItemPickup: " .. item.name .. " picked up. Matches current item.") 
+  end 
+
+  
+end 
+
+
+
+_addon.HandleItemPlacement = function() 
+  d("HandleItemPlacement: Item placed") 
+end 
+
 
 
 
@@ -624,7 +663,6 @@ end
 _addon.UpdateCurrentItemDisplay = function() 
   local ctrl = _addon.cfg.gui.map.item 
   local item = _addon.cfg.state.current.item 
-  local safeKey = zo_getSafeId64Key(item.id) 
 
   GetControl(ctrl.icon):SetTexture(item.icon) 
   GetControl(ctrl.zosName):SetText(item.name) 
@@ -824,6 +862,8 @@ end
 _addon.SetCurrentItem = function(_fid) 
   local item = _addon.cfg.state.current.item 
   local safeKey = zo_getSafeId64Key(_fid) 
+  item.lastSafeKey = safeKey 
+
 
   -- if new item is already current item use its alias 
   if item.id ~= _fid then 
