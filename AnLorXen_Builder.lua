@@ -145,6 +145,7 @@ _addon.cfg = {
         lastSafeKey = nil, 
         icon = "", 
         name = "<No Current Item>", 
+        isMoving = false, 
         isSet = false, 
         isVisible = false, 
         alias = {
@@ -432,25 +433,36 @@ end
 
 _addon.HandleItemPickup = function(_furnitureId) 
   local safeKey = zo_getSafeId64Key(_furnitureId) 
-
-  local furnName, furnIcon, furnDataId 
-    = GetPlacedHousingFurnitureInfo(_furnitureId) 
-
   local item = _addon.cfg.state.current.item 
 
   if safeKey == item.lastSafeKey then 
-    d("HandleItemPickup: " .. furnName .. " picked up") 
-  else 
-    d("HandleItemPickup: " .. item.name .. " picked up. Matches current item.") 
+    item.isMoving = true 
   end 
 
-  
 end 
 
 
 
 _addon.HandleItemPlacement = function() 
-  d("HandleItemPlacement: Item placed") 
+  local item = _addon.cfg.state.current.item 
+  if item.isMoving == true then 
+
+    item.initial.position.x, 
+    item.initial.position.y, 
+    item.initial.position.z 
+      = HousingEditorGetFurnitureWorldPosition(item.id) 
+  
+    item.initial.rotation.x, 
+    item.initial.rotation.y, 
+    item.initial.rotation.z 
+      = HousingEditorGetFurnitureOrientation(item.id) 
+  
+    item.updated = item.initial 
+
+    _addon.UpdateCurrentItemDisplay() 
+
+    item.isMoving = false 
+  end 
 end 
 
 
@@ -894,12 +906,14 @@ _addon.SetCurrentItem = function(_fid)
   item.initial.rotation.z 
     = HousingEditorGetFurnitureOrientation(item.id) 
 
-  item.updated.position.x = item.initial.position.x
-  item.updated.position.y = item.initial.position.y
-  item.updated.position.z = item.initial.position.z
-  item.updated.rotation.x = item.initial.rotation.x
-  item.updated.rotation.y = item.initial.rotation.y
-  item.updated.rotation.z = item.initial.rotation.z 
+  item.updated = item.initial
+
+  -- item.updated.position.x = item.initial.position.x 
+  -- item.updated.position.y = item.initial.position.y 
+  -- item.updated.position.z = item.initial.position.z 
+  -- item.updated.rotation.x = item.initial.rotation.x 
+  -- item.updated.rotation.y = item.initial.rotation.y 
+  -- item.updated.rotation.z = item.initial.rotation.z 
 end 
 
 
