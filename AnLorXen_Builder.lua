@@ -138,14 +138,20 @@ _addon.cfg = {
         name = "<No Current Group>", 
       }, 
 
+      inHand = {
+        id = nil, 
+        safeKey = nil, 
+        isCurrentItem = false, 
+        isInCurrentGroup = false 
+      }, 
+
       item = { 
         id = nil, 
+        safeKey = nil, 
         fid = nil, 
         fdataId = nil, 
-        lastSafeKey = nil, 
         icon = "", 
         name = "<No Current Item>", 
-        isMoving = false, 
         isSet = false, 
         isVisible = false, 
         alias = {
@@ -432,12 +438,20 @@ end
 
 
 _addon.HandleItemPickup = function(_furnitureId) 
-  local safeKey = zo_getSafeId64Key(_furnitureId) 
   local item = _addon.cfg.state.current.item 
+  local inHand = _addon.cfg.state.current.inHand 
+  inHand.id = _furnitureId 
+  inHand.safeKey = zo_getSafeId64Key(_furnitureId) 
 
-  if safeKey == item.lastSafeKey then 
-    item.isMoving = true 
+  if inHand.safeKey == item.safeKey then 
+    inHand.isCurrentItem = true 
   end 
+
+
+  if _addon.fids[inHand.safeKey] then 
+    inHand.isInCurrentGroup = true 
+  end 
+
 
 end 
 
@@ -445,7 +459,9 @@ end
 
 _addon.HandleItemPlacement = function() 
   local item = _addon.cfg.state.current.item 
-  if item.isMoving == true then 
+  local inHand = _addon.cfg.state.current.inHand 
+
+  if inHand.isCurrentItem then 
 
     item.initial.position.x, 
     item.initial.position.y, 
@@ -458,11 +474,19 @@ _addon.HandleItemPlacement = function()
       = HousingEditorGetFurnitureOrientation(item.id) 
   
     item.updated = item.initial 
-
     _addon.UpdateCurrentItemDisplay() 
 
-    item.isMoving = false 
+    inHand.isCurrentItem = false 
   end 
+
+  if inHand.isInCurrentGroup then 
+    _addon.UpdateItemInGroup(inHand.id) 
+    inHand.isInCurrentGroup = false 
+  end 
+
+  inHand.id = nil 
+  inHand.safeKey = nil 
+
 end 
 
 
@@ -777,17 +801,44 @@ end
 
 
 
+_addon.UpdateItemInGroup = function(_fid) 
+  local safeKey = zo_getSafeId64Key(_fid) 
+  local pos = {} 
+  local rot = {} 
+
+  if _addon.items[safeKey] then 
+    pos.x, pos.y, pos.z = HousingEditorGetFurnitureWorldPosition(_fid) 
+    rot.x, rot.y, rot.z = HousingEditorGetFurnitureOrientation(_fid) 
+
+    _addon.items[safeKey].posX = pos.x 
+    _addon.items[safeKey].posY = pos.y 
+    _addon.items[safeKey].posZ = pos.z 
+
+    _addon.items[safeKey].rotX 
+      = _addon.RadiansToDegreeInteger(rot.x) 
+    _addon.items[safeKey].rotY 
+      = _addon.RadiansToDegreeInteger(rot.y) 
+    _addon.items[safeKey].rotZ 
+      = _addon.RadiansToDegreeInteger(rot.z) 
+
+    _addon.ItemList:Refresh() 
+  end 
+end 
+
+
+
 _addon.UpdateCurrentItemInGroup = function(_fid) 
   local safeKey = zo_getSafeId64Key(_fid) 
   local item = _addon.cfg.state.current.item
 
   if _addon.items[safeKey] then 
-    -- use fids table key to mark item selected 
+    -- mark current item selected 
     for key, item in pairs(_addon.items) do 
       item["status"] = "" 
     end 
     _addon.items[safeKey].status = "X" 
 
+    -- use item alias if set 
     if item.alias.isSet then 
       _addon.items[safeKey].name = item.alias.name 
     else 
@@ -874,7 +925,7 @@ end
 _addon.SetCurrentItem = function(_fid) 
   local item = _addon.cfg.state.current.item 
   local safeKey = zo_getSafeId64Key(_fid) 
-  item.lastSafeKey = safeKey 
+  item.safeKey = safeKey 
 
 
   -- if new item is already current item use its alias 
