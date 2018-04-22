@@ -645,8 +645,7 @@ _addon.BuildCurrentItem = function()
   GetControl(ctrlEditRot .. "_RotY_Label"):SetText("Y:") 
   GetControl(ctrlEditRot .. "_RotY_Label"):SetColor(0.2000, 0.8000, 0.2000, 1) 
   GetControl(ctrlEditRot .. "_RotZ_Label"):SetText("Z:") 
-  GetControl(ctrlEditRot .. "_RotZ_Label"):SetColor(0.4000, 0.4000, 0.8000, 1) 
-  
+  GetControl(ctrlEditRot .. "_RotZ_Label"):SetColor(0.4000, 0.4000, 0.8000, 1)   
 end 
 
 
@@ -690,8 +689,7 @@ _addon.BuildItemDelta = function()
   GetControl(sRotCoordZ):SetText("z:") 
   GetControl(sRotCoordZ):SetColor(0.2, 0.2, 1, 1) 
   GetControl(ctrl.coordRotZ):SetText(deltaRot.coord.z) 
-  GetControl(ctrl.offsetRotZ):SetText(deltaRot.offset.z) 
-  
+  GetControl(ctrl.offsetRotZ):SetText(deltaRot.offset.z)   
 end 
 
 
@@ -795,8 +793,7 @@ _addon.AddCurrentItemToGroup = function()
   _addon.ItemList:Refresh() 
 
   _addon.cfg.state.current.group.isSet = true 
-  _addon.ShowCurrentGroupDisplay() 
-  
+  _addon.ShowCurrentGroupDisplay()   
 end 
 
 
@@ -878,11 +875,8 @@ _addon.SetCurrentItemFromReticle = function(_self)
     return 
   end 
   
-  -- hide GUI and return if reticle has no target ?
+  -- do nothing if reticle has no target 
   if (not HousingEditorCanSelectTargettedFurniture()) then 
-    -- TODO: Determine desired functionality here - 
-    -- TODO: hiding the GUI is not desired
-    -- _addon.HideCurrentItemDisplay() 
     return 
   else 
     -- TODO: newFid might reference non-interactive furniture 
@@ -958,13 +952,6 @@ _addon.SetCurrentItem = function(_fid)
     = HousingEditorGetFurnitureOrientation(item.id) 
 
   item.updated = item.initial
-
-  -- item.updated.position.x = item.initial.position.x 
-  -- item.updated.position.y = item.initial.position.y 
-  -- item.updated.position.z = item.initial.position.z 
-  -- item.updated.rotation.x = item.initial.rotation.x 
-  -- item.updated.rotation.y = item.initial.rotation.y 
-  -- item.updated.rotation.z = item.initial.rotation.z 
 end 
 
 
@@ -1070,7 +1057,6 @@ _addon.ItemSetCoords = function()
   rotCoord.z = item.rotation.z 
   GetControl(ctrlDelta.coordRotZ)
     :SetText(_addon.RadiansToDegreeInteger(rotCoord.z)) 
-
 end 
 
 
@@ -1299,8 +1285,6 @@ end
 
 
 
-
-
 _addon.ShowGroupRenameCtrl = function() 
   local ctrl = _addon.cfg.gui.map.group 
   local group = _addon.cfg.state.current.group 
@@ -1325,7 +1309,6 @@ _addon.SetGroupName = function()
   GetControl(ctrl.name):SetHidden(false) 
   GetControl(ctrl.name):SetText(group.name) 
 end 
-
 
 
 
@@ -1359,7 +1342,6 @@ end
 
 
 
-
 AnLorXen_Builder_ItemDelta_SetCoords_OnClicked = function(_self) 
   _addon.ItemSetCoords() 
 end 
@@ -1370,7 +1352,6 @@ end
 
 AnLorXen_Builder_SpinCtrlBtn_OnClicked = function(_self) 
   -- d("event: AnLorXen_Builder_SpinCtrlBtn_OnClicked") 
-
   _addon.cfg.gui.ctrls.current.active = _self
   _addon.cfg.gui.ctrls.current.parent = _self:GetParent() 
   _addon.cfg.gui.ctrls.current.value = GetControl(
@@ -1391,7 +1372,6 @@ end
 
 AnLorXen_Builder_IncBtn_OnMouseDown = function(_self) 
   -- d("event: AnLorXen_Builder_IncBtn_OnMouseDown") 
-
   _addon.cfg.gui.ctrls.current.active = _self 
   _addon:ItemIncrementBtnClick() 
 end 
@@ -1452,13 +1432,11 @@ end
 
 
 
-
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 -------     SYSTEM     --------------------------------------------------------
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-
 
 
 
@@ -1472,7 +1450,6 @@ _addon.Init = function(_eventCode, _addOnName)
   _addon.BuildCurrentGroup() 
     
   _addon.ClearDiagnostic() 
-
 end 
 
 
@@ -1488,7 +1465,6 @@ ZO_CreateStringId("SI_BINDING_NAME_REMOVE_GROUP", "Remove Group")
 
 
 SLASH_COMMANDS["/rl"] = function()	ReloadUI("ingame") end 
-
 
 SLASH_COMMANDS["/ll"] = function() 
   if _addon.cfg.state.hidden then 
