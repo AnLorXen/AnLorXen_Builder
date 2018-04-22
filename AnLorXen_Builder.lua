@@ -443,16 +443,15 @@ _addon.HandleItemPickup = function(_furnitureId)
   inHand.id = _furnitureId 
   inHand.safeKey = zo_getSafeId64Key(_furnitureId) 
 
+  -- check if item in hand is current item 
   if inHand.safeKey == item.safeKey then 
     inHand.isCurrentItem = true 
   end 
 
-
+  -- check if item in hand is in current group 
   if _addon.fids[inHand.safeKey] then 
     inHand.isInCurrentGroup = true 
   end 
-
-
 end 
 
 
@@ -462,7 +461,6 @@ _addon.HandleItemPlacement = function()
   local inHand = _addon.cfg.state.current.inHand 
 
   if inHand.isCurrentItem then 
-
     item.initial.position.x, 
     item.initial.position.y, 
     item.initial.position.z 
@@ -486,17 +484,13 @@ _addon.HandleItemPlacement = function()
 
   inHand.id = nil 
   inHand.safeKey = nil 
-
 end 
-
 
 
 
 _addon.HandleFurnitureRemoved = function(_furnitureId, collectibleId) 
   d("HandleFurnitureRemoved: ") 
 end 
-
-
 
 _addon.HandleFurniturePlaced = function(_furnitureId, collectibleId) 
   d("HandleFurniturePlaced: ") 
@@ -596,7 +590,6 @@ _addon.HideCurrentGroupDisplay = function()
   GetControl(_addon.cfg.gui.map.group.topLevel):SetHidden(true) 
   _addon.cfg.state.current.group.isVisible = false 
 end
-
 
 
 
