@@ -9,7 +9,8 @@
 			<Action name="ADD_ITEM">
 				<Down>AnLorXen_Builder_AddItemToGroup()</Down>
 			</Action>
-			<Action name="REMOVE_ITEM">
+
+			<!-- <Action name="REMOVE_ITEM">
 				<Down>AnLorXen_Builder_RemoveItemFromGroup()</Down>
 			</Action>
 			<Action name="CLEAR_GROUP">
@@ -23,7 +24,8 @@
 			</Action>
 			<Action name="REMOVE_GROUP">
 				<Down>AnLorXen_Builder_ConfirmRemoveGroup()</Down>
-			</Action>
+			</Action> -->
+
 		</Category>
 	</Layer>
 </Bindings>
