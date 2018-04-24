@@ -410,29 +410,37 @@ end
 
 
 _addon.HandleModeChange = function(_event, _oldMode, _newMode) 
-  _addon.cfg.state.current.mode = _newMode 
-  local newMode = _addon.cfg.state.current.mode 
+  local current = _addon.cfg.state.current 
+  current.mode = _newMode 
 
+  -- HOUSING_EDITOR_MODE_DISABLED or HOUSING_EDITOR_MODE_BROWSE 
+  --    to HOUSING_EDITOR_MODE_SELECTION 
+  if (_oldMode == 0 or _oldMode == 3) and current.mode == 2 then 
+    if current.item.isSet then 
+      _addon.ShowCurrentItemDisplay() 
+    end 
+    if current.group.isSet then 
+      _addon.ShowCurrentGroupDisplay() 
+    end 
+  end 
 
   -- HOUSING_EDITOR_MODE_SELECTION to HOUSING_EDITOR_MODE_PLACEMENT 
-  if _oldMode == 2 and newMode == 1 then 
+  if _oldMode == 2 and current.mode == 1 then 
     local furnId = HousingEditorGetSelectedFurnitureId() 
     _addon.HandleItemPickup(furnId) 
   end 
 
   -- HOUSING_EDITOR_MODE_PLACEMENT to HOUSING_EDITOR_MODE_SELECTION 
-  if _oldMode == 1 and newMode == 2 then 
+  if _oldMode == 1 and current.mode == 2 then 
     _addon.HandleItemPlacement() 
   end 
 
-
   -- HOUSING_EDITOR_MODE_DISABLED or HOUSING_EDITOR_MODE_BROWSE 
-  if newMode == 0 or newMode == 3 then 
+  if current.mode == 0 or current.mode == 3 then 
     _addon.HideCurrentItemDisplay() 
     _addon.HideItemDeltaDisplay() 
     _addon.HideCurrentGroupDisplay() 
   end 
-
 end 
 
 
@@ -785,7 +793,17 @@ _addon.AddCurrentItemToGroup = function()
   } 
   _addon.ItemList:Refresh() 
 
-  _addon.cfg.state.current.group.isSet = true 
+  if not _addon.cfg.state.current.group.isSet then 
+
+    -- TODO: Get saved group counter 
+    local gName = "Group " .. "001" 
+
+    GetControl(_addon.cfg.gui.map.group.name)
+      :SetText(gName) 
+    _addon.cfg.state.current.group.name = gName 
+    _addon.cfg.state.current.group.isSet = true 
+  end 
+
   _addon.ShowCurrentGroupDisplay()   
 end 
 
@@ -1297,6 +1315,7 @@ _addon.SetGroupName = function()
 
   -- TODO: group.name validation checks 
   group.name = GetControl(ctrl.editName):GetText() 
+
   GetControl(ctrl.bdName):SetHidden(true) 
   GetControl(ctrl.editName):SetHidden(true) 
   GetControl(ctrl.name):SetHidden(false) 
