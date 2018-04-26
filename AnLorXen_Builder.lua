@@ -97,7 +97,9 @@ _addon.cfg = {
         topLevel = "AnLorXen_Builder_CurrentGroup", 
         name = "AnLorXen_Builder_CurrentGroup_Header_Title", 
         bdName = "AnLorXen_Builder_CurrentGroup_Header_BdGroupName", 
-        editName = "AnLorXen_Builder_CurrentGroup_Header_EditGroupName" 
+        editName = "AnLorXen_Builder_CurrentGroup_Header_EditGroupName", 
+        btnMoveGroup = "AnLorXen_Builder_CurrentGroup_Menu_BtnMoveGroup", 
+        btnRemoveItem = "AnLorXen_Builder_CurrentGroup_Menu_BtnRemoveItem" 
       } 
     } 
   }, 
@@ -135,6 +137,8 @@ _addon.cfg = {
       group = { 
         isSet = false, 
         isVisible = false, 
+        isMoving = false, 
+        moveAsGroup = false, 
         name = "<No Current Group>", 
       }, 
 
@@ -756,6 +760,7 @@ end
 
 
 _addon.AddCurrentItemToGroup = function() 
+  -- TODO: Check if current item is nil and do not add 
   local item, safeKey 
 
   _addon.SetCurrentItemFromReticle() 
@@ -866,6 +871,39 @@ _addon.UpdateCurrentItemInGroup = function(_fid)
 
     _addon.ItemList:Refresh() 
   end 
+end 
+
+
+
+_addon.ToggleGroupItemMove = function() 
+  local group = _addon.cfg.state.current.group 
+  local ctrl = _addon.cfg.gui.map.group 
+  if group.moveAsGroup then 
+    group.moveAsGroup = false 
+    GetControl(ctrl.btnMoveGroup):SetText("Item") 
+    -- mark current item selected 
+    for key, item in pairs(_addon.items) do 
+      item["status"] = "" 
+    end 
+    local safeKey = zo_getSafeId64Key(_addon.cfg.state.current.item.id) 
+    _addon.items[safeKey].status = "X"
+
+    -- TODO: enable ctrl.btnRemoveItem
+
+    
+  else 
+    group.moveAsGroup = true 
+    GetControl(ctrl.btnMoveGroup):SetText("Group") 
+    -- mark all items selected 
+    for key, item in pairs(_addon.items) do 
+      item["status"] = "X" 
+    end 
+
+    -- TODO: disable ctrl.btnRemoveItem 
+
+    
+  end 
+  _addon.ItemList:Refresh() 
 end 
 
 
@@ -1414,6 +1452,11 @@ AnLorXen_Builder_CurrentGroup_EditGroupName_OnFocusLost = function(_self)
   _addon.SetGroupName() 
 end 
 
+
+AnLorXen_Builder_CurrentGroup_MoveGroup_OnClicked = function(_self) 
+  -- d("AnLorXen_Builder_CurrentGroup_MoveGroup_OnClicked") 
+  _addon.ToggleGroupItemMove() 
+end 
 
 AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked = function(_self) 
   -- d("AnLorXen_Builder_CurrentGroup_RemoveItem_OnClicked") 

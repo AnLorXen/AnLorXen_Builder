@@ -1742,14 +1742,43 @@
           <Controls>
 
             <Button 
+              name="$(parent)_BtnMoveGroup" 
+              inherits="ZO_DefaultTextButton" 
+              text="Item" 
+            >
+              <Anchor 
+                point="TOPLEFT" 
+                relativeTo="$(parent)" 
+                relativePoint="TOPLEFT" 
+                offsetX="8" 
+                offsetY="0" 
+              />
+              <Dimensions x="72" y="32" /> 
+              <OnClicked>
+                AnLorXen_Builder_CurrentGroup_MoveGroup_OnClicked(self)
+              </OnClicked>
+              <OnMouseEnter>
+                ZO_Tooltips_ShowTextTooltip(self, TOP, "Move as Group/Item") 
+              </OnMouseEnter>
+              <OnMouseExit>
+                ZO_Tooltips_HideTextTooltip()
+              </OnMouseExit>              
+              <Textures 
+                normal="esoui/art/buttons/swatchframe_down.dds" 
+                pressed="esoui/art/buttons/swatchframe_down.dds" 
+                mouseOver="esoui/art/buttons/swatchframe_over.dds"           
+              />
+            </Button>
+
+            <Button 
               name="$(parent)_BtnRemoveItem" 
               inherits="ZO_DefaultTextButton" 
               text="Remove" 
             >
               <Anchor 
                 point="TOPLEFT" 
-                relativeTo="$(parent)" 
-                relativePoint="TOPLEFT" 
+                relativeTo="$(parent)_BtnMoveGroup" 
+                relativePoint="TOPRIGHT" 
                 offsetX="8" 
                 offsetY="0" 
               />
