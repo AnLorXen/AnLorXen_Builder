@@ -146,7 +146,15 @@ _addon.cfg = {
         id = nil, 
         safeKey = nil, 
         isCurrentItem = false, 
-        isInCurrentGroup = false 
+        isInCurrentGroup = false, 
+        initial = {
+          position = { x = 0, y = 0, z = 0 }, 
+          rotation = { x = 0, y = 0, z = 0 }
+        }, 
+        updated = {
+          position = { x = 0, y = 0, z = 0 }, 
+          rotation = { x = 0, y = 0, z = 0 }
+        } 
       }, 
 
       item = { 
@@ -458,11 +466,20 @@ _addon.HandleItemPickup = function(_furnitureId)
   -- check if item in hand is current item 
   if inHand.safeKey == item.safeKey then 
     inHand.isCurrentItem = true 
+    inHand.initial = item.initial 
   end 
-
   -- check if item in hand is in current group 
   if _addon.fids[inHand.safeKey] then 
     inHand.isInCurrentGroup = true 
+
+    inHand.initial.position.x, 
+    inHand.initial.position.y, 
+    inHand.initial.position.z 
+      = HousingEditorGetFurnitureWorldPosition(inHand.id) 
+    inHand.initial.rotation.x, 
+    inHand.initial.rotation.y, 
+    inHand.initial.rotation.z 
+      = HousingEditorGetFurnitureOrientation(inHand.id) 
   end 
 end 
 
@@ -476,13 +493,11 @@ _addon.HandleItemPlacement = function()
     item.initial.position.x, 
     item.initial.position.y, 
     item.initial.position.z 
-      = HousingEditorGetFurnitureWorldPosition(item.id) 
-  
+      = HousingEditorGetFurnitureWorldPosition(item.id)   
     item.initial.rotation.x, 
     item.initial.rotation.y, 
     item.initial.rotation.z 
       = HousingEditorGetFurnitureOrientation(item.id) 
-  
     item.updated = item.initial 
     _addon.UpdateCurrentItemDisplay() 
 
@@ -490,6 +505,27 @@ _addon.HandleItemPlacement = function()
   end 
 
   if inHand.isInCurrentGroup then 
+    local delta = {
+      pos = { x = 0, y = 0, z = 0 }, 
+      rot = { x = 0, y = 0, z = 0 }
+    } 
+
+    inHand.updated.position.x, 
+    inHand.updated.position.y, 
+    inHand.updated.position.z 
+      = HousingEditorGetFurnitureWorldPosition(inHand.id)   
+    inHand.updated.rotation.x, 
+    inHand.updated.rotation.y, 
+    inHand.updated.rotation.z 
+      = HousingEditorGetFurnitureOrientation(inHand.id) 
+
+    delta.pos.x = inHand.updated.position.x - inHand.initial.position.x 
+    delta.pos.y = inHand.updated.position.y - inHand.initial.position.y 
+    delta.pos.z = inHand.updated.position.z - inHand.initial.position.z 
+    delta.rot.x = inHand.updated.rotation.x - inHand.initial.rotation.x 
+    delta.rot.y = inHand.updated.rotation.y - inHand.initial.rotation.y 
+    delta.rot.z = inHand.updated.rotation.z - inHand.initial.rotation.z 
+
     _addon.UpdateItemInGroup(inHand.id) 
     inHand.isInCurrentGroup = false 
   end 
@@ -932,9 +968,7 @@ _addon.SetCurrentItemFromReticle = function(_self)
     local newFid = _addon.GetSelectedFid() 
     _addon.SetCurrentItem(newFid) 
     _addon.UpdateCurrentItemDisplay() 
-
     _addon.ShowCurrentItemDisplay() 
-
     _addon.UpdateCurrentItemInGroup(newFid) 
   end 
 end 
@@ -943,9 +977,11 @@ end
 
 _addon.SetCurrentItemFromGroup = function(_self, _btn, _ctrl) 
   local safeKey 
-  -- remove 'current' status from all display items 
   for key, item in pairs(_addon.items) do 
-    item["status"] = "" 
+    -- remove 'current' status if moving as item 
+    if not _addon.cfg.state.current.group.moveAsGroup then 
+      item["status"] = "" 
+    end 
     -- set clicked item status and set current item 
     if _self.data.id == item["id"] then 
       item["status"] = "X" 
@@ -969,7 +1005,6 @@ _addon.SetCurrentItem = function(_fid)
   local item = _addon.cfg.state.current.item 
   local safeKey = zo_getSafeId64Key(_fid) 
   item.safeKey = safeKey 
-
 
   -- if new item is already current item use its alias 
   if item.id ~= _fid then 
@@ -1002,7 +1037,6 @@ _addon.SetCurrentItem = function(_fid)
 
   item.updated = item.initial
 end 
-
 
 
 
